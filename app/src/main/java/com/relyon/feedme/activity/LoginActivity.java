@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -47,10 +48,12 @@ public class LoginActivity extends AppCompatActivity {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        binding.googleButton.setOnClickListener(viewBt -> signIn());
+        binding.googleButton.setSize(SignInButton.SIZE_WIDE);
+        binding.googleButton.setColorScheme(SignInButton.COLOR_AUTO);
+        binding.googleButton.setOnClickListener(view1 -> signInGoogle());
     }
 
-    private void signIn() {
+    private void signInGoogle() {
         Intent intent = googleSignInClient.getSignInIntent();
         openActivity.launch(intent);
     }

@@ -4,6 +4,9 @@
     package="com.relyon.feedme">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +19,9 @@
         android:theme="@style/Theme.FeedMe"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AddRecipeActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.NewRecipeActivity"
             android:exported="false" />
         <activity
@@ -26,18 +32,16 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login">
+            android:exported="false"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.MainActivity"
-            android:exported="true">
-
         </activity>
     </application>
 

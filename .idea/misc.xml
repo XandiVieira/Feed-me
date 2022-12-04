@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_main.xml" value="0.1703125" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/drawable-anydpi/add_recipe.xml" value="0.219" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_add_recipe.xml" value="0.33" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/ingredient_add_item.xml" value="0.33" />
       </map>
     </option>
   </component>
@@ -13,5 +16,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>
