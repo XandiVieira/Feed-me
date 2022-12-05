@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createDbConnection() {
         db = FirebaseFirestore.getInstance();
+        Util.setDb(db);
     }
 
     private void logout() {
