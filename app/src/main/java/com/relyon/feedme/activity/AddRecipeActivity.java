@@ -36,16 +36,20 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         ingredientsViews = new ArrayList<>();
         stepsViews = new ArrayList<>();
-        addIngredientView();
-        addStepView();
+        addItemView(ingredientsViews, "Ingredient ", binding.ingredientsList);
+        addItemView(stepsViews, "Step ", binding.stepsList);
 
         binding.send.setOnClickListener(view -> {
             if (recipeDataIsValid()) {
                 List<String> ingredients = new ArrayList<>();
+                List<String> steps = new ArrayList<>();
                 for (EditText editText : ingredientsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList())) {
                     ingredients.add(editText.getText().toString());
                 }
-                createNewRecipe(ingredients, binding.recipeTitle.getText().toString());
+                for (EditText editText : stepsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList())) {
+                    steps.add(editText.getText().toString());
+                }
+                createNewRecipe(ingredients, steps, binding.recipeTitle.getText().toString());
             }
         });
     }
@@ -54,8 +58,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         return true;
     }
 
-    private void createNewRecipe(List<String> ingredients, String title) {
-        Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, new ArrayList<>(), 0);
+    private void createNewRecipe(List<String> ingredients, List<String> steps, String title) {
+        Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, steps, 0);
 
         saveNewRecipe(recipe);
     }
@@ -65,68 +69,36 @@ public class AddRecipeActivity extends AppCompatActivity {
                 .set(recipe);
     }
 
-    private void addIngredientView() {
-        final View view = getLayoutInflater().inflate(R.layout.ingredient_add_item, null, false);
+    private void addItemView(List<ViewObject> lista, String hint, LinearLayout layout) {
+        final View view = getLayoutInflater().inflate(R.layout.item_add_item, null, false);
 
-        view.setId(ingredientsViews.size());
-        EditText ingredient = view.findViewById(R.id.ingredient);
-        ingredient.setId(ingredientsViews.size());
-        ingredient.setHint("Ingredient " + (ingredientsViews.size() + 1));
-        ImageButton add = view.findViewById(R.id.add_ingredient);
-        add.setId(ingredientsViews.size());
-        ImageButton remove = view.findViewById(R.id.remove_ingredient);
-        remove.setId(ingredientsViews.size());
+        view.setId(lista.size());
+        EditText ingredient = view.findViewById(R.id.item);
+        ingredient.setId(lista.size());
+        ingredient.setHint(hint + (lista.size() + 1));
+        ImageButton add = view.findViewById(R.id.add_item);
+        add.setId(lista.size());
+        ImageButton remove = view.findViewById(R.id.remove_item);
+        remove.setId(lista.size());
 
-        ingredientsViews.add(new ViewObject(ingredientsViews.size(), view, ingredient, remove, add));
+        lista.add(new ViewObject(lista.size(), view, ingredient, remove, add));
 
         add.setOnClickListener(view1 -> {
-            if (checkEditTextsAreFilled(ingredientsViews)) {
-                addIngredientView();
-                updateLayout(ingredientsViews, "ingredient ");
+            if (checkEditTextsAreFilled(lista)) {
+                addItemView(lista, hint, layout);
+                updateLayout(lista, hint);
             } else {
-                Toast.makeText(view.getContext(), "Insira o nome do ingrediente antes de adicionar um novo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Insira o nome do " + hint + "antes de adicionar um novo!", Toast.LENGTH_SHORT).show();
             }
         });
         remove.setOnClickListener(view1 -> {
-            removeView(view, binding.ingredientsList);
-            ingredientsViews.remove(view1.getId());
-            updateIds(view1, ingredientsViews);
-            updateLayout(ingredientsViews, "Ingredient ");
+            removeView(view, layout);
+            lista.remove(view1.getId());
+            updateIds(view1, lista);
+            updateLayout(lista, hint);
         });
 
-        binding.ingredientsList.addView(view);
-    }
-
-    private void addStepView() {
-        final View view = getLayoutInflater().inflate(R.layout.ingredient_add_item, null, false);
-
-        view.setId(stepsViews.size());
-        EditText ingredient = view.findViewById(R.id.ingredient);
-        ingredient.setId(stepsViews.size());
-        ingredient.setHint("Step " + (stepsViews.size() + 1));
-        ImageButton add = view.findViewById(R.id.add_ingredient);
-        add.setId(stepsViews.size());
-        ImageButton remove = view.findViewById(R.id.remove_ingredient);
-        remove.setId(stepsViews.size());
-
-        stepsViews.add(new ViewObject(stepsViews.size(), view, ingredient, remove, add));
-
-        add.setOnClickListener(view1 -> {
-            if (checkEditTextsAreFilled(stepsViews)) {
-                addStepView();
-                updateLayout(stepsViews, "Step ");
-            } else {
-                Toast.makeText(view.getContext(), "Insira o passo antes de adicionar um novo!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        remove.setOnClickListener(view1 -> {
-            removeView(view, binding.stepsList);
-            stepsViews.remove(view1.getId());
-            updateIds(view1, stepsViews);
-            updateLayout(stepsViews, "Step ");
-        });
-
-        binding.stepsList.addView(view);
+        layout.addView(view);
     }
 
     private void updateIds(View view1, List<ViewObject> list) {

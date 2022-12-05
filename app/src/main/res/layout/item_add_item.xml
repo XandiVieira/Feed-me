@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <AutoCompleteTextView
-            android:id="@+id/ingredient"
+            android:id="@+id/item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -22,7 +22,7 @@
             android:paddingHorizontal="5dp" />
 
         <ImageButton
-            android:id="@+id/add_ingredient"
+            android:id="@+id/add_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -32,7 +32,7 @@
             android:visibility="visible" />
 
         <ImageButton
-            android:id="@+id/remove_ingredient"
+            android:id="@+id/remove_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
