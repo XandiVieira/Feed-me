@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +50,24 @@ public class AddRecipeActivity extends AppCompatActivity {
                 for (EditText editText : stepsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList())) {
                     steps.add(editText.getText().toString());
                 }
-                createNewRecipe(ingredients, steps, binding.recipeTitle.getText().toString());
+                createNewRecipe(ingredients, steps, binding.recipeTitle.getText().toString(), binding.simpleSeekBar.getProgress());
+            }
+        });
+
+        binding.simpleSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                binding.timeIndicator.setText(i + " min");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }
@@ -58,8 +76,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         return true;
     }
 
-    private void createNewRecipe(List<String> ingredients, List<String> steps, String title) {
-        Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, steps, 0);
+    private void createNewRecipe(List<String> ingredients, List<String> steps, String title, int time) {
+        Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, steps, time);
 
         saveNewRecipe(recipe);
     }
