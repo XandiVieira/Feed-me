@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-
+                            Util.setUser(document.toObject(User.class));
                         } else {
                             Log.d(TAG, "No such document");
                             User user = document.toObject(User.class);

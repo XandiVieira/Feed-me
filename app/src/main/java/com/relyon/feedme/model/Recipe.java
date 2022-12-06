@@ -10,14 +10,16 @@ public class Recipe {
     private List<String> ingredients;
     private List<String> stepByStep;
     private int preparationTime;
+    private String observations;
 
-    public Recipe(String id, String userId, String name, List<String> ingredients, List<String> stepByStep, int preparationTime) {
+    public Recipe(String id, String userId, String name, List<String> ingredients, List<String> stepByStep, int preparationTime, String observations) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.ingredients = ingredients;
         this.stepByStep = stepByStep;
         this.preparationTime = preparationTime;
+        this.observations = observations;
     }
 
     public String getId() {
@@ -66,5 +68,13 @@ public class Recipe {
 
     public void setPreparationTime(int preparationTime) {
         this.preparationTime = preparationTime;
+    }
+
+    public String getObservations() {
+        return observations;
+    }
+
+    public void setObservations(String observations) {
+        this.observations = observations;
     }
 }

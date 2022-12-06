@@ -44,13 +44,12 @@ public class AddRecipeActivity extends AppCompatActivity {
             if (recipeDataIsValid()) {
                 List<String> ingredients = new ArrayList<>();
                 List<String> steps = new ArrayList<>();
-                for (EditText editText : ingredientsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList())) {
-                    ingredients.add(editText.getText().toString());
-                }
-                for (EditText editText : stepsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList())) {
-                    steps.add(editText.getText().toString());
-                }
-                createNewRecipe(ingredients, steps, binding.recipeTitle.getText().toString(), binding.simpleSeekBar.getProgress());
+
+                ingredientsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList()).forEach(ingredient -> ingredients.add(ingredient.getText().toString()));
+
+                stepsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList()).forEach(step -> steps.add(step.getText().toString()));
+
+                createNewRecipe(ingredients, steps, binding.recipeTitle.getText().toString(), binding.simpleSeekBar.getProgress(), binding.observations.getText().toString().trim());
             }
         });
 
@@ -76,8 +75,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         return true;
     }
 
-    private void createNewRecipe(List<String> ingredients, List<String> steps, String title, int time) {
-        Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, steps, time);
+    private void createNewRecipe(List<String> ingredients, List<String> steps, String title, int time, String observations) {
+        Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, steps, time, observations);
 
         saveNewRecipe(recipe);
     }
