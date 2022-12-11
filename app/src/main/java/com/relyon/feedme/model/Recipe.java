@@ -7,12 +7,12 @@ public class Recipe {
     private String id;
     private String userId;
     private String name;
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
     private List<String> stepByStep;
     private int preparationTime;
     private String observations;
 
-    public Recipe(String id, String userId, String name, List<String> ingredients, List<String> stepByStep, int preparationTime, String observations) {
+    public Recipe(String id, String userId, String name, List<Ingredient> ingredients, List<String> stepByStep, int preparationTime, String observations) {
         this.id = id;
         this.userId = userId;
         this.name = name;
@@ -46,11 +46,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

@@ -2,10 +2,12 @@ package com.relyon.feedme.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
 import com.relyon.feedme.databinding.ActivityAddRecipeBinding;
+import com.relyon.feedme.model.Ingredient;
+import com.relyon.feedme.model.IngredientViewObject;
 import com.relyon.feedme.model.Recipe;
+import com.relyon.feedme.model.StepViewObject;
+import com.relyon.feedme.model.UnitOfMeasurement;
 import com.relyon.feedme.model.ViewObject;
 
 import java.util.ArrayList;
@@ -26,6 +32,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     ActivityAddRecipeBinding binding;
     List<ViewObject> ingredientsViews;
     List<ViewObject> stepsViews;
+    List<UnitOfMeasurement> unitOfMeasurement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +44,17 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         ingredientsViews = new ArrayList<>();
         stepsViews = new ArrayList<>();
-        addItemView(ingredientsViews, "Ingredient ", binding.ingredientsList);
-        addItemView(stepsViews, "Step ", binding.stepsList);
+
+        getUnitsOfMeasurement();
 
         binding.send.setOnClickListener(view -> {
             if (recipeDataIsValid()) {
-                List<String> ingredients = new ArrayList<>();
+                List<Ingredient> ingredients = new ArrayList<>();
                 List<String> steps = new ArrayList<>();
 
-                ingredientsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList()).forEach(ingredient -> ingredients.add(ingredient.getText().toString()));
+                ingredientsViews.forEach(item -> {
+                    ingredients.add(new Ingredient(item.getEditText().getText().toString(), item.getUnit().getSelectedItem().toString(), Integer.valueOf(item.getQuantity().getText().toString())));
+                });
 
                 stepsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList()).forEach(step -> steps.add(step.getText().toString()));
 
@@ -71,11 +80,24 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
-    private boolean recipeDataIsValid() {
-        return true;
+    private void getUnitsOfMeasurement() {
+        Util.getDb().collection("units").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                unitOfMeasurement = new ArrayList<>();
+                task.getResult().forEach(result -> {
+                    unitOfMeasurement.add(result.toObject(UnitOfMeasurement.class));
+                });
+                addItemView(ingredientsViews, "Ingredient ", binding.ingredientsList);
+                addItemView(stepsViews, "Step ", binding.stepsList);
+            }
+        });
     }
 
-    private void createNewRecipe(List<String> ingredients, List<String> steps, String title, int time, String observations) {
+    private boolean recipeDataIsValid() {
+        return !binding.observations.getText().toString().trim().isEmpty();
+    }
+
+    private void createNewRecipe(List<Ingredient> ingredients, List<String> steps, String title, int time, String observations) {
         Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, steps, time, observations);
 
         saveNewRecipe(recipe);
@@ -84,28 +106,49 @@ public class AddRecipeActivity extends AppCompatActivity {
     private void saveNewRecipe(Recipe recipe) {
         Util.getDb().collection("recipes").document(recipe.getId())
                 .set(recipe);
+        Toast.makeText(getApplicationContext(), "Receita criada!", Toast.LENGTH_SHORT).show();
     }
 
     private void addItemView(List<ViewObject> lista, String hint, LinearLayout layout) {
         final View view = getLayoutInflater().inflate(R.layout.item_add_item, null, false);
 
         view.setId(lista.size());
-        EditText ingredient = view.findViewById(R.id.item);
-        ingredient.setId(lista.size());
-        ingredient.setHint(hint + (lista.size() + 1));
+        EditText ingredientOrStep = view.findViewById(R.id.item);
+        ingredientOrStep.setId(lista.size());
+        ingredientOrStep.setHint(hint + (lista.size() + 1));
         ImageButton add = view.findViewById(R.id.add_item);
         add.setId(lista.size());
         ImageButton remove = view.findViewById(R.id.remove_item);
         remove.setId(lista.size());
 
-        lista.add(new ViewObject(lista.size(), view, ingredient, remove, add));
+        LinearLayout linearLayout = view.findViewById(R.id.measure_layout);
+
+        if (hint.equals("Ingredient ")) {
+            linearLayout.setVisibility(View.VISIBLE);
+            Spinner units = view.findViewById(R.id.measure_unity);
+            units.setId(lista.size());
+            EditText quantity = view.findViewById(R.id.quantity);
+            quantity.setId(lista.size());
+            lista.add(new IngredientViewObject(lista.size(), view, ingredientOrStep, remove, add, units, quantity));
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, unitOfMeasurement.stream().map(UnitOfMeasurement::getUnitName).collect(Collectors.toList()));
+            units.setAdapter(adapter);
+            units.setSelection(0);
+        } else {
+            linearLayout.setVisibility(View.GONE);
+            LinearLayout buttonsLayout = view.findViewById(R.id.buttons_layout);
+            buttonsLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    4));
+            lista.add(new StepViewObject(lista.size(), view, ingredientOrStep, remove, add));
+        }
 
         add.setOnClickListener(view1 -> {
             if (checkEditTextsAreFilled(lista)) {
                 addItemView(lista, hint, layout);
                 updateLayout(lista, hint);
             } else {
-                Toast.makeText(view.getContext(), "Insira o nome do " + hint + "antes de adicionar um novo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Preencha as informações do " + hint + "antes de adicionar um novo!", Toast.LENGTH_SHORT).show();
             }
         });
         remove.setOnClickListener(view1 -> {
@@ -116,6 +159,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
 
         layout.addView(view);
+        System.out.println();
     }
 
     private void updateIds(View view1, List<ViewObject> list) {
@@ -151,8 +195,13 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     private boolean checkEditTextsAreFilled(List<ViewObject> list) {
-        for (EditText editText : list.stream().map(ViewObject::getEditText).collect(Collectors.toList())) {
-            if (editText.getText().toString().isEmpty()) {
+        for (ViewObject object : list) {
+            if (object.getEditText().getText().toString().isEmpty()) {
+                if (object.getUnit() != null && object.getQuantity() != null) {
+                    if (object.getUnit().getSelectedItem().toString().trim().isEmpty() || object.getQuantity().getText().toString().trim().isEmpty()) {
+                        return false;
+                    }
+                }
                 return false;
             }
         }
