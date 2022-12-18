@@ -1,8 +1,16 @@
 package com.relyon.feedme.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
+
+    private String id;
+    private String username;
+    private String email;
+    private String memberSince;
+    private double points;
+    private List<String> favoriteRecipes;
 
     public User() {
     }
@@ -14,12 +22,6 @@ public class User {
         this.memberSince = memberSince;
         this.points = points;
     }
-
-    private String id;
-    private String username;
-    private String email;
-    private String memberSince;
-    private double points;
 
     public String getId() {
         return id;
@@ -59,5 +61,27 @@ public class User {
 
     public void setPoints(double points) {
         this.points = points;
+    }
+
+    public List<String> getFavoriteRecipes() {
+        return favoriteRecipes != null ? favoriteRecipes : new ArrayList<>();
+    }
+
+    public void setFavoriteRecipes(List<String> favoriteRecipes) {
+        this.favoriteRecipes = favoriteRecipes;
+    }
+
+    public void addRecipeToFavorites(String recipeId) {
+        if (favoriteRecipes == null) {
+            favoriteRecipes = new ArrayList<>();
+        }
+        favoriteRecipes.add(recipeId);
+    }
+
+    public void removeRecipeToFavorites(String recipeId) {
+        if (favoriteRecipes == null) {
+            favoriteRecipes = new ArrayList<>();
+        }
+        favoriteRecipes.remove(recipeId);
     }
 }

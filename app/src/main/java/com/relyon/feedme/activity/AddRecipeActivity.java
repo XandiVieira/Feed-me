@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,7 +25,6 @@ import com.relyon.feedme.model.ViewObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class AddRecipeActivity extends AppCompatActivity {
@@ -58,7 +58,10 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                 stepsViews.stream().map(ViewObject::getEditText).collect(Collectors.toList()).forEach(step -> steps.add(step.getText().toString()));
 
-                createNewRecipe(ingredients, steps, binding.recipeTitle.getText().toString(), binding.simpleSeekBar.getProgress(), binding.observations.getText().toString().trim());
+                RadioButton radioButton = findViewById(binding.difficulty.getCheckedRadioButtonId());
+                String difficulty = radioButton.getText().toString();
+
+                createNewRecipe(ingredients, steps, binding.recipeTitle.getText().toString(), binding.simpleSeekBar.getProgress(), binding.observations.getText().toString().trim(), difficulty);
             }
         });
 
@@ -97,9 +100,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         return !binding.observations.getText().toString().trim().isEmpty();
     }
 
-    private void createNewRecipe(List<Ingredient> ingredients, List<String> steps, String title, int time, String observations) {
-        Recipe recipe = new Recipe(UUID.randomUUID().toString(), Util.getUser().getId(), title, ingredients, steps, time, observations);
-
+    private void createNewRecipe(List<Ingredient> ingredients, List<String> steps, String title, int time, String observations, String difficulty) {
+        Recipe recipe = new Recipe(Util.getUser().getId(), title, ingredients, steps, time, observations, difficulty);
         saveNewRecipe(recipe);
     }
 

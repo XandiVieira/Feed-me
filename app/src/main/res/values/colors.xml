@@ -6,9 +6,14 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="grey">#828282</color>
+    <color name="grey_dark">#666666</color>
+    <color name="grey_alpha">#66666666</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#FFD23F</color>
-    <color name="accent">#FF7F50</color>
+    <color name="accent">#DE7457</color>
+    <color name="green">#B1E145</color>
+    <color name="green_dark">#419C4F</color>
     <color name="custom_white">#F3FCF0</color>
     <color name="custom_black">#1F271B</color>
 </resources>

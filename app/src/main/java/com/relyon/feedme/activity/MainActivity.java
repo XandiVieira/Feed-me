@@ -7,20 +7,27 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.Util;
+import com.relyon.feedme.ViewPagerAdapter;
 import com.relyon.feedme.databinding.ActivityMainBinding;
+import com.relyon.feedme.model.Recipe;
 import com.relyon.feedme.model.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         if (account != null) {
             String name = account.getDisplayName();
             String email = account.getEmail();
-            binding.email.setText(email);
-            binding.name.setText(name);
+            //binding.email.setText(email);
+            //binding.name.setText(name);
         }
 
         authStateListener = firebaseAuth -> {
@@ -67,17 +74,28 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        binding.logout.setOnClickListener(tv -> {
+        /*binding.logout.setOnClickListener(tv -> {
             logout();
         });
 
-        binding.addRecipeButton.setOnClickListener(view -> {
+        /*binding.addRecipeButton.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(), AddRecipeActivity.class));
         });
 
         binding.profileButton.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        });*/
+
+        binding.searchButton.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), AddRecipeActivity.class));
         });
+
+        ViewPager viewPager = binding.viewPager;
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        binding.tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.setOffscreenPageLimit(4);
+        viewPager.animate().translationX(0f).setDuration(0);
     }
 
     private void retrieveUserFromDB(String id) {
@@ -103,12 +121,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private User createUser(String id) {
-
         User user = new User(id, account.getDisplayName(), account.getEmail(), LocalDate.now().toString(), 0.0);
-
         db.collection("users").document(id)
                 .set(user);
-
         return user;
     }
 
