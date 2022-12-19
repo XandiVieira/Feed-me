@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.fragment.ForYouFragment">
+    tools:context=".activity.fragment.categories.ForYouFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/for_you_recycler_view"

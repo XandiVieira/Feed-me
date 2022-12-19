@@ -1,4 +1,4 @@
-package com.relyon.feedme.activity.fragment;
+package com.relyon.feedme.activity.fragment.categories;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

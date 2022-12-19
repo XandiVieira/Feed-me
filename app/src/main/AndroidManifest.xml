@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.relyon.feedme">
+    package="com.relyon.feedme" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
             android:name=".activity.AddRecipeActivity"
             android:exported="false" />
@@ -36,7 +36,7 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

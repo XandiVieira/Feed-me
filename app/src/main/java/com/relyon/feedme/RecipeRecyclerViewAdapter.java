@@ -4,8 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -21,16 +24,22 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
     private List<Recipe> recipes;
     private LayoutInflater mInflater;
+    private Context context;
+    Animation animZoomIn;
+    Animation animZoomOut;
 
     public RecipeRecyclerViewAdapter(Context context, List<Recipe> recipes) {
         this.mInflater = LayoutInflater.from(context);
         this.recipes = recipes;
+        this.context = context;
     }
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_recipe_card, parent, false);
+        animZoomIn = AnimationUtils.loadAnimation(context, R.anim.zoom_in);
+        animZoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out);
         return new ViewHolder(view);
     }
 
@@ -56,13 +65,13 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
                 break;
         }
 
-        boolean favorite = isFavorite(recipe.getId());
+        boolean favorite = isFavorite(recipe.getId(), holder.favorite);
         if (favorite) {
             holder.favorite.setBackgroundResource(R.drawable.favorite_filled);
         }
 
-        holder.favorite.setOnClickListener(view -> {
-            updateFavorite(recipe.getId(), holder.favorite, isFavorite(recipe.getId()));
+        holder.favoriteLayout.setOnClickListener(view -> {
+            updateFavorite(recipe.getId(), holder.favorite, isFavorite(recipe.getId(), holder.favorite));
         });
     }
 
@@ -81,6 +90,8 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     }
 
     private void updateFavoriteListLocally(String id, boolean isFavorite, ImageView favorite) {
+        favorite.startAnimation(animZoomIn);
+        favorite.startAnimation(animZoomOut);
         if (isFavorite) {
             Util.getUser().removeRecipeToFavorites(id);
             favorite.setBackgroundResource(R.drawable.favorite);
@@ -94,8 +105,14 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         Util.getDb().collection("users").document(Util.getUser().getId()).update("favoriteRecipes", list);
     }
 
-    private boolean isFavorite(String recipe) {
-        return Util.getUser().getFavoriteRecipes().contains(recipe);
+    private boolean isFavorite(String recipe, ImageView favorite) {
+        boolean contains = Util.getUser().getFavoriteRecipes() != null && Util.getUser().getFavoriteRecipes().contains(recipe);
+        if (contains) {
+            favorite.setBackgroundResource(R.drawable.favorite_filled);
+        } else {
+            favorite.setBackgroundResource(R.drawable.favorite);
+        }
+        return contains;
     }
 
     // total number of rows
@@ -113,6 +130,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         RatingBar ratingBar;
         ImageView favorite;
         Button difficulty;
+        LinearLayout favoriteLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -122,6 +140,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
             rateIndicator = itemView.findViewById(R.id.rate_indicator);
             favorite = itemView.findViewById(R.id.favorite);
             difficulty = itemView.findViewById(R.id.difficulty);
+            favoriteLayout = itemView.findViewById(R.id.favorite_layout);
         }
 
     }

@@ -7,36 +7,35 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
-import com.relyon.feedme.ViewPagerAdapter;
 import com.relyon.feedme.databinding.ActivityMainBinding;
-import com.relyon.feedme.model.Recipe;
 import com.relyon.feedme.model.User;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-
     private FirebaseAuth mAuth;
-    private GoogleSignInClient googleSignInClient;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseFirestore db;
+    private GoogleSignInClient googleSignInClient;
+
     private GoogleSignInAccount account;
 
     @Override
@@ -53,16 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
+        googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
-        account = GoogleSignIn.getLastSignedInAccount(this);
-
-        if (account != null) {
-            String name = account.getDisplayName();
-            String email = account.getEmail();
-            //binding.email.setText(email);
-            //binding.name.setText(name);
-        }
+        account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
         authStateListener = firebaseAuth -> {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -74,28 +66,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        /*binding.logout.setOnClickListener(tv -> {
-            logout();
-        });
-
-        /*binding.addRecipeButton.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), AddRecipeActivity.class));
-        });
-
-        binding.profileButton.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-        });*/
-
-        binding.searchButton.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), AddRecipeActivity.class));
-        });
-
-        ViewPager viewPager = binding.viewPager;
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-        binding.tabLayout.setupWithViewPager(viewPager);
-
-        viewPager.setOffscreenPageLimit(4);
-        viewPager.animate().translationX(0f).setDuration(0);
     }
 
     private void retrieveUserFromDB(String id) {
@@ -105,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            Util.setUser(document.toObject(User.class));
+                            User user = document.toObject(User.class);
+                            Util.setUser(user);
                         } else {
                             Log.d(TAG, "No such document");
                             User user = document.toObject(User.class);
@@ -114,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Util.setUser(user);
                         }
+                        Util.getDb().collection("users").document(Util.getUser().getId()).collection("favoriteRecipes").get();
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
                     }
@@ -132,22 +104,14 @@ public class MainActivity extends AppCompatActivity {
         Util.setDb(db);
     }
 
-    private void logout() {
-        googleSignInClient.signOut().addOnCompleteListener(task -> {
-            mAuth.signOut();
-            finish();
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        });
-    }
-
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(authStateListener);
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         if (authStateListener != null) {
             mAuth.removeAuthStateListener(authStateListener);

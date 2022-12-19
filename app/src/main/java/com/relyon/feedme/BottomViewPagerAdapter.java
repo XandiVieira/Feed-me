@@ -9,9 +9,9 @@ import com.relyon.feedme.activity.fragment.categories.LactoseFreeFragment;
 import com.relyon.feedme.activity.fragment.categories.SweetFragment;
 import com.relyon.feedme.activity.fragment.categories.VegetarianFragment;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class BottomViewPagerAdapter extends FragmentPagerAdapter {
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public BottomViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -45,16 +45,16 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         String title = null;
         switch (position) {
             case 0:
-                title = "Para você";
+                title = "Perfil";
                 break;
             case 1:
-                title = "Doces";
+                title = "Ranking";
                 break;
             case 2:
-                title = "Vegetariano";
+                title = "Home";
                 break;
             case 3:
-                title = "Zero lactose";
+                title = "Alertas";
                 break;
         }
         return title;

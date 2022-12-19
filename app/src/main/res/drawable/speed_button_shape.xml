@@ -30,7 +30,7 @@
                 android:bottomRightRadius="0dp"
                 android:topLeftRadius="5dp"
                 android:topRightRadius="5dp" />
-            <solid android:color="@color/grey_alpha" />
+            <solid android:color="@color/light_grey_alpha" />
         </shape>
     </item>
 </selector>

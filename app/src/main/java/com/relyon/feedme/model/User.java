@@ -64,7 +64,7 @@ public class User {
     }
 
     public List<String> getFavoriteRecipes() {
-        return favoriteRecipes != null ? favoriteRecipes : new ArrayList<>();
+        return favoriteRecipes;
     }
 
     public void setFavoriteRecipes(List<String> favoriteRecipes) {
