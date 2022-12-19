@@ -72,7 +72,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_gravity="start"
-                                android:src="@drawable/timer" />
+                                android:src="@drawable/ic_timer" />
 
                             <TextView
                                 android:id="@+id/recipe_preparation_time"
@@ -97,7 +97,7 @@
                             android:id="@+id/favorite"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/favorite" />
+                            android:src="@drawable/ic_heart" />
                     </LinearLayout>
                 </LinearLayout>
 

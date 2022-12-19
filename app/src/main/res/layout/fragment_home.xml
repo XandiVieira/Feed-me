@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/info" />
+            android:src="@drawable/ic_info" />
 
         <ImageView
             android:layout_width="96dp"
@@ -110,7 +110,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:background="@color/white"
-                        android:src="@drawable/filters" />
+                        android:src="@drawable/ic_filters" />
                 </LinearLayout>
 
                 <EditText
@@ -137,7 +137,7 @@
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:background="@drawable/search_icon_shape"
-                        android:src="@drawable/search" />
+                        android:src="@drawable/ic_search" />
                 </LinearLayout>
 
             </LinearLayout>

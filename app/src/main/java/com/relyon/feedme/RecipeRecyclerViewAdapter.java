@@ -24,7 +24,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
     private List<Recipe> recipes;
     private LayoutInflater mInflater;
-    private Context context;
+    private final Context context;
     Animation animZoomIn;
     Animation animZoomOut;
 
@@ -67,7 +67,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
         boolean favorite = isFavorite(recipe.getId(), holder.favorite);
         if (favorite) {
-            holder.favorite.setBackgroundResource(R.drawable.favorite_filled);
+            holder.favorite.setBackgroundResource(R.drawable.ic_heart_filled);
         }
 
         holder.favoriteLayout.setOnClickListener(view -> {
@@ -94,10 +94,10 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         favorite.startAnimation(animZoomOut);
         if (isFavorite) {
             Util.getUser().removeRecipeToFavorites(id);
-            favorite.setBackgroundResource(R.drawable.favorite);
+            favorite.setBackgroundResource(R.drawable.ic_heart);
         } else {
             Util.getUser().addRecipeToFavorites(id);
-            favorite.setBackgroundResource(R.drawable.favorite_filled);
+            favorite.setBackgroundResource(R.drawable.ic_heart_filled);
         }
     }
 
@@ -108,9 +108,9 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     private boolean isFavorite(String recipe, ImageView favorite) {
         boolean contains = Util.getUser().getFavoriteRecipes() != null && Util.getUser().getFavoriteRecipes().contains(recipe);
         if (contains) {
-            favorite.setBackgroundResource(R.drawable.favorite_filled);
+            favorite.setBackgroundResource(R.drawable.ic_heart_filled);
         } else {
-            favorite.setBackgroundResource(R.drawable.favorite);
+            favorite.setBackgroundResource(R.drawable.ic_heart);
         }
         return contains;
     }

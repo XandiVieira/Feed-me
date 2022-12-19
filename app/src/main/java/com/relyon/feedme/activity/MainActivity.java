@@ -7,22 +7,24 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
+import com.relyon.feedme.activity.fragment.AlertFragment;
+import com.relyon.feedme.activity.fragment.HomeFragment;
+import com.relyon.feedme.activity.fragment.ProfileFragment;
+import com.relyon.feedme.activity.fragment.RankingFragment;
 import com.relyon.feedme.databinding.ActivityMainBinding;
 import com.relyon.feedme.model.User;
 
@@ -66,6 +68,34 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        binding.navView.setSelectedItemId(R.id.navigation_home);
+
+        binding.navView.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    replaceFragment(new HomeFragment());
+                    break;
+                case R.id.navigation_ranking:
+                    replaceFragment(new RankingFragment());
+                    break;
+                case R.id.navigation_profile:
+                    replaceFragment(new ProfileFragment());
+                    break;
+                case R.id.navigation_alerts:
+                    replaceFragment(new AlertFragment());
+                    break;
+            }
+
+            return true;
+        });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main2, fragment);
+        fragmentTransaction.commit();
     }
 
     private void retrieveUserFromDB(String id) {
