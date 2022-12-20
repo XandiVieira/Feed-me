@@ -1,4 +1,4 @@
-package com.relyon.feedme;
+package com.relyon.feedme.viewpageradapters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,8 +11,11 @@ import com.relyon.feedme.activity.fragment.categories.VegetarianFragment;
 
 public class BottomViewPagerAdapter extends FragmentPagerAdapter {
 
+    Fragment fragment;
+
     public BottomViewPagerAdapter(FragmentManager fm) {
         super(fm);
+        this.fragment = fm.getPrimaryNavigationFragment();
     }
 
     @Override
@@ -20,16 +23,16 @@ public class BottomViewPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new ForYouFragment();
+                fragment = new ForYouFragment(this.fragment.getContext(), this.fragment.getActivity());
                 break;
             case 1:
-                fragment = new SweetFragment();
+                fragment = new SweetFragment(this.fragment.getContext(), this.fragment.getActivity());
                 break;
             case 2:
-                fragment = new VegetarianFragment();
+                fragment = new VegetarianFragment(this.fragment.getContext(), this.fragment.getActivity());
                 break;
             case 3:
-                fragment = new LactoseFreeFragment();
+                fragment = new LactoseFreeFragment(this.fragment.getContext(), this.fragment.getActivity());
                 break;
         }
         return fragment;

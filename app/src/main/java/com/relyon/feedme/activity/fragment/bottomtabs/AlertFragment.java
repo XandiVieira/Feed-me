@@ -1,4 +1,4 @@
-package com.relyon.feedme.activity.fragment;
+package com.relyon.feedme.activity.fragment.bottomtabs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,16 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.relyon.feedme.databinding.FragmentRankingBinding;
+import com.relyon.feedme.databinding.FragmentAlertBinding;
 
-public class RankingFragment extends Fragment {
+public class AlertFragment extends Fragment {
 
-    private FragmentRankingBinding binding;
+    private FragmentAlertBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentRankingBinding.inflate(inflater, container, false);
+        binding = FragmentAlertBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;

@@ -1,5 +1,7 @@
 package com.relyon.feedme.activity.fragment.categories;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +13,16 @@ import com.relyon.feedme.R;
 
 public class LactoseFreeFragment extends Fragment {
 
+    private Context context;
+    private Activity activity;
+
     public LactoseFreeFragment() {
+    }
+
+    public LactoseFreeFragment(Context context, Activity activity) {
+        this.context = context;
         // Required empty public constructor
+        this.activity = activity;
     }
 
     @Override

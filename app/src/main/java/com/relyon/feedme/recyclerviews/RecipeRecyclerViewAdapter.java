@@ -1,5 +1,6 @@
-package com.relyon.feedme;
+package com.relyon.feedme.recyclerviews;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.relyon.feedme.R;
+import com.relyon.feedme.Util;
+import com.relyon.feedme.activity.MainActivity;
+import com.relyon.feedme.activity.fragment.RecipeFragment;
 import com.relyon.feedme.model.Recipe;
 
 import java.util.ArrayList;
@@ -25,13 +31,15 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     private List<Recipe> recipes;
     private LayoutInflater mInflater;
     private final Context context;
+    private Activity activity;
     Animation animZoomIn;
     Animation animZoomOut;
 
-    public RecipeRecyclerViewAdapter(Context context, List<Recipe> recipes) {
+    public RecipeRecyclerViewAdapter(Context context, Activity activity, List<Recipe> recipes) {
         this.mInflater = LayoutInflater.from(context);
         this.recipes = recipes;
         this.context = context;
+        this.activity = activity;
     }
 
     // inflates the row layout from xml when needed
@@ -72,6 +80,10 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
         holder.favoriteLayout.setOnClickListener(view -> {
             updateFavorite(recipe.getId(), holder.favorite, isFavorite(recipe.getId(), holder.favorite));
+        });
+
+        holder.cardView.setOnClickListener(view -> {
+            ((MainActivity) activity).replaceFragment(new RecipeFragment(recipe));
         });
     }
 
@@ -131,6 +143,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         ImageView favorite;
         Button difficulty;
         LinearLayout favoriteLayout;
+        CardView cardView;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -141,12 +154,8 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
             favorite = itemView.findViewById(R.id.favorite);
             difficulty = itemView.findViewById(R.id.difficulty);
             favoriteLayout = itemView.findViewById(R.id.favorite_layout);
+            cardView = itemView.findViewById(R.id.card);
         }
 
-    }
-
-    // convenience method for getting data at click position
-    Recipe getItem(int id) {
-        return recipes.get(id);
     }
 }

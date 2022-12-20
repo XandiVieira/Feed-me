@@ -1,6 +1,5 @@
 package com.relyon.feedme.activity.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,26 +7,31 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import com.relyon.feedme.ViewPagerAdapter;
-import com.relyon.feedme.activity.AddRecipeActivity;
-import com.relyon.feedme.databinding.FragmentHomeBinding;
+import com.relyon.feedme.databinding.FragmentRecipeBinding;
+import com.relyon.feedme.model.Recipe;
+import com.relyon.feedme.viewpageradapters.RecipeViewPagerAdapter;
 
-public class HomeFragment extends Fragment {
+public class RecipeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentRecipeBinding binding;
+    private Recipe recipe;
+
+    public RecipeFragment(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        binding.searchButton.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), AddRecipeActivity.class));
-        });
 
         buildFragment();
 
@@ -36,16 +40,10 @@ public class HomeFragment extends Fragment {
 
     private void buildFragment() {
         ViewPager viewPager = binding.viewPager;
-        viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(new RecipeViewPagerAdapter(getChildFragmentManager(), this, recipe));
         binding.tabLayout.setupWithViewPager(viewPager);
 
         viewPager.setOffscreenPageLimit(4);
         viewPager.animate().translationX(0f).setDuration(0);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

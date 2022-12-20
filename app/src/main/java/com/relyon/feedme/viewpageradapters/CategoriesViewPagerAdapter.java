@@ -1,38 +1,42 @@
-package com.relyon.feedme;
+package com.relyon.feedme.viewpageradapters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.relyon.feedme.activity.fragment.bottomtabs.HomeFragment;
 import com.relyon.feedme.activity.fragment.categories.ForYouFragment;
 import com.relyon.feedme.activity.fragment.categories.LactoseFreeFragment;
 import com.relyon.feedme.activity.fragment.categories.SweetFragment;
 import com.relyon.feedme.activity.fragment.categories.VegetarianFragment;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class CategoriesViewPagerAdapter extends FragmentPagerAdapter {
+    
+    Fragment fragment;
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public CategoriesViewPagerAdapter(FragmentManager fm, Fragment fragment) {
         super(fm);
+        this.fragment = fragment;
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
+        Fragment newFragment = null;
         switch (position) {
             case 0:
-                fragment = new ForYouFragment();
+                newFragment = new ForYouFragment(fragment.getContext(), fragment.getActivity());
                 break;
             case 1:
-                fragment = new SweetFragment();
+                newFragment = new SweetFragment(fragment.getContext(), fragment.getActivity());
                 break;
             case 2:
-                fragment = new VegetarianFragment();
+                newFragment = new VegetarianFragment(fragment.getContext(), fragment.getActivity());
                 break;
             case 3:
-                fragment = new LactoseFreeFragment();
+                newFragment = new LactoseFreeFragment(fragment.getContext(), fragment.getActivity());
                 break;
         }
-        return fragment;
+        return newFragment;
     }
 
     @Override

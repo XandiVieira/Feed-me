@@ -1,5 +1,7 @@
 package com.relyon.feedme.activity.fragment.categories;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,14 +15,21 @@ import com.relyon.feedme.R;
 
 public class SweetFragment extends Fragment {
 
+    private Context context;
+    private Activity activity;
+
     public SweetFragment() {
+    }
+
+    public SweetFragment(Context context, Activity activity) {
         // Required empty public constructor
+        this.context = context;
+        this.activity = activity;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

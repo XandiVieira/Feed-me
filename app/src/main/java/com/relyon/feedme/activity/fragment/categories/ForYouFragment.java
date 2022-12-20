@@ -1,5 +1,7 @@
 package com.relyon.feedme.activity.fragment.categories;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.relyon.feedme.R;
-import com.relyon.feedme.RecipeRecyclerViewAdapter;
+import com.relyon.feedme.recyclerviews.RecipeRecyclerViewAdapter;
 import com.relyon.feedme.Util;
 import com.relyon.feedme.model.Recipe;
 
@@ -20,9 +22,15 @@ import java.util.List;
 public class ForYouFragment extends Fragment {
 
     private RecipeRecyclerViewAdapter adapter;
+    private Context context;
+    private Activity activity;
+
+    public ForYouFragment(Context context, Activity activity) {
+        this.context = context;
+        this.activity = activity;
+    }
 
     public ForYouFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -50,7 +58,7 @@ public class ForYouFragment extends Fragment {
                 task.getResult().forEach(result -> {
                     recipes.add(result.toObject(Recipe.class));
                 });
-                adapter = new RecipeRecyclerViewAdapter(getContext(), recipes);
+                adapter = new RecipeRecyclerViewAdapter(getContext(), activity, recipes);
                 recyclerView.setAdapter(adapter);
             }
         });

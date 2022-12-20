@@ -1,10 +1,11 @@
 package com.relyon.feedme.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class Recipe {
+public class Recipe implements Serializable {
 
     private String id;
     private String userId;

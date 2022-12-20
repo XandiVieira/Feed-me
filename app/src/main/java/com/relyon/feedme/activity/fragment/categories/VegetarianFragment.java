@@ -1,9 +1,10 @@
 package com.relyon.feedme.activity.fragment.categories;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,16 @@ import com.relyon.feedme.R;
 
 public class VegetarianFragment extends Fragment {
 
+    private Context context;
+    private Activity activity;
+
     public VegetarianFragment() {
+    }
+
+    public VegetarianFragment(Context context, Activity activity) {
+        this.context = context;
         // Required empty public constructor
+        this.activity = activity;
     }
 
     @Override

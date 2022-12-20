@@ -21,12 +21,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
-import com.relyon.feedme.activity.fragment.AlertFragment;
-import com.relyon.feedme.activity.fragment.HomeFragment;
-import com.relyon.feedme.activity.fragment.ProfileFragment;
-import com.relyon.feedme.activity.fragment.RankingFragment;
+import com.relyon.feedme.activity.fragment.RecipeFragment;
+import com.relyon.feedme.activity.fragment.bottomtabs.AlertFragment;
+import com.relyon.feedme.activity.fragment.bottomtabs.HomeFragment;
+import com.relyon.feedme.activity.fragment.bottomtabs.ProfileFragment;
+import com.relyon.feedme.activity.fragment.bottomtabs.RankingFragment;
 import com.relyon.feedme.databinding.ActivityMainBinding;
+import com.relyon.feedme.model.Recipe;
 import com.relyon.feedme.model.User;
+import com.relyon.feedme.recyclerviews.RecipeRecyclerViewAdapter;
 
 import java.time.LocalDate;
 
@@ -91,10 +94,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main2, fragment);
+        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, fragment);
         fragmentTransaction.commit();
     }
 

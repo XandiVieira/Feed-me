@@ -1,6 +1,5 @@
-package com.relyon.feedme.activity.fragment;
+package com.relyon.feedme.activity.fragment.bottomtabs;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +7,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
-import com.relyon.feedme.ViewPagerAdapter;
-import com.relyon.feedme.activity.AddRecipeActivity;
-import com.relyon.feedme.databinding.FragmentAlertBinding;
+import com.relyon.feedme.databinding.FragmentRankingBinding;
 
-public class AlertFragment extends Fragment {
+public class RankingFragment extends Fragment {
 
-    private FragmentAlertBinding binding;
+    private FragmentRankingBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentAlertBinding.inflate(inflater, container, false);
+        binding = FragmentRankingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;
