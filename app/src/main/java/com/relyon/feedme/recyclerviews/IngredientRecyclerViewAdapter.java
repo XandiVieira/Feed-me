@@ -44,12 +44,14 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         holder.checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 holder.quantity.setPaintFlags(holder.quantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                holder.quantity.getPaint().setStrokeWidth(5);
                 holder.ingredient.setPaintFlags(holder.ingredient.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                holder.ingredient.getPaint().setStrokeWidth(5);
+                holder.ingredient.setTextColor(context.getResources().getColor(R.color.grey_alpha));
+                holder.quantity.setTextColor(context.getResources().getColor(R.color.grey_alpha));
             } else {
                 holder.quantity.setPaintFlags(holder.quantity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 holder.ingredient.setPaintFlags(holder.ingredient.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                holder.ingredient.setTextColor(context.getResources().getColor(R.color.black));
+                holder.quantity.setTextColor(context.getResources().getColor(R.color.black));
             }
         });
     }

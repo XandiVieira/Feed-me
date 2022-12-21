@@ -30,13 +30,13 @@ public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
                 newFragment = new IngredientsFragment(fragment.getContext(), fragment.getActivity(), recipe);
                 break;
             case 1:
-                newFragment = new PreparationFragment(fragment.getContext(), fragment.getActivity());
+                newFragment = new PreparationFragment(fragment.getContext(), fragment.getActivity(), recipe);
                 break;
             case 2:
-                newFragment = new NeededUtensilsFragment(fragment.getContext(), fragment.getActivity());
+                newFragment = new NeededUtensilsFragment(fragment.getContext(), fragment.getActivity(), recipe);
                 break;
             case 3:
-                newFragment = new ReviewsFragment(fragment.getContext(), fragment.getActivity());
+                newFragment = new ReviewsFragment(fragment.getContext(), fragment.getActivity(), recipe);
                 break;
         }
         return newFragment;

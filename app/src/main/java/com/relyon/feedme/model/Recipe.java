@@ -12,6 +12,8 @@ public class Recipe implements Serializable {
     private String name;
     private List<Ingredient> ingredients;
     private List<String> stepByStep;
+    private List<String> utensilsNeeded;
+    private List<Review> reviews;
     private int preparationTime;
     private String observations;
     private Float rate;
@@ -23,12 +25,14 @@ public class Recipe implements Serializable {
     public Recipe() {
     }
 
-    public Recipe(String userId, String name, List<Ingredient> ingredients, List<String> stepByStep, int preparationTime, String observations, String difficulty) {
+    public Recipe(String userId, String name, List<Ingredient> ingredients, List<String> stepByStep, List<String> utensilsNeeded, List<Review> reviews, int preparationTime, String observations, String difficulty) {
         this.id = UUID.randomUUID().toString();
         this.userId = userId;
         this.name = name;
         this.ingredients = ingredients;
         this.stepByStep = stepByStep;
+        this.utensilsNeeded = utensilsNeeded;
+        this.reviews = reviews;
         this.preparationTime = preparationTime;
         this.observations = observations;
         this.numberOfRates = 0;
@@ -131,5 +135,21 @@ public class Recipe implements Serializable {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public List<String> getUtensilsNeeded() {
+        return utensilsNeeded;
+    }
+
+    public void setUtensilsNeeded(List<String> utensilsNeeded) {
+        this.utensilsNeeded = utensilsNeeded;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

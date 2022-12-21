@@ -29,6 +29,7 @@
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/drawable/speed_button_shape.xml" value="0.25" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/drawable/speed_button_text_color.xml" value="0.208" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/drawable/thumb_style.xml" value="0.2465" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/font/segoe.xml" value="0.2574055158324821" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/font/urbanist.xml" value="0.2487231869254341" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_add_recipe.xml" value="0.40925925925925927" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_login.xml" value="0.22" />
@@ -46,7 +47,7 @@
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_ingredients.xml" value="0.1" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_lactose_free.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_needed_utensils.xml" value="0.1" />
-        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_preparation.xml" value="0.1" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_preparation.xml" value="0.25" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_ranking.xml" value="0.1" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_recipe.xml" value="0.225" />
@@ -56,8 +57,10 @@
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/ingredient_add_item.xml" value="0.33" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/item_add_item.xml" value="0.33" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/item_ingredient.xml" value="0.5" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/item_preparation.xml" value="0.67" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/item_recipe.xml" value="0.20199275362318841" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/item_recipe_card.xml" value="0.49256505576208176" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/item_utensil_card.xml" value="0.5" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/search_bar_shape.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/seekbar_style.xml" value="0.213768115942029" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2864583333333333" />

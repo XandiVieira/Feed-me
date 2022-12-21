@@ -101,7 +101,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     private void createNewRecipe(List<Ingredient> ingredients, List<String> steps, String title, int time, String observations, String difficulty) {
-        Recipe recipe = new Recipe(Util.getUser().getId(), title, ingredients, steps, time, observations, difficulty);
+        Recipe recipe = new Recipe(Util.getUser().getId(), title, ingredients, steps, new ArrayList<>(), new ArrayList<>(), time, observations, difficulty);
         saveNewRecipe(recipe);
     }
 
