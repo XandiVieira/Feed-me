@@ -130,7 +130,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     // total number of rows
     @Override
     public int getItemCount() {
-        return recipes.size();
+        return recipes != null ? recipes.size() : 0;
     }
 
 

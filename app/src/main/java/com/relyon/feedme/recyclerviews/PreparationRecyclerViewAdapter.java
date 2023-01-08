@@ -42,7 +42,7 @@ public class PreparationRecyclerViewAdapter extends RecyclerView.Adapter<Prepara
     // total number of rows
     @Override
     public int getItemCount() {
-        return preparationSteps.size();
+        return preparationSteps != null ? preparationSteps.size() : 0;
     }
 
 

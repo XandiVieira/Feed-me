@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".activity.fragment.recipetabs.IngredientsFragment">
+    tools:context=".activity.fragment.recipemenu.IngredientsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ingredients_recycler_view"

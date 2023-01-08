@@ -21,15 +21,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
-import com.relyon.feedme.activity.fragment.RecipeFragment;
-import com.relyon.feedme.activity.fragment.bottomtabs.AlertFragment;
-import com.relyon.feedme.activity.fragment.bottomtabs.HomeFragment;
-import com.relyon.feedme.activity.fragment.bottomtabs.ProfileFragment;
-import com.relyon.feedme.activity.fragment.bottomtabs.RankingFragment;
+import com.relyon.feedme.activity.fragment.bottommenu.AlertFragment;
+import com.relyon.feedme.activity.fragment.bottommenu.HomeFragment;
+import com.relyon.feedme.activity.fragment.bottommenu.ProfileFragment;
+import com.relyon.feedme.activity.fragment.bottommenu.RankingFragment;
 import com.relyon.feedme.databinding.ActivityMainBinding;
-import com.relyon.feedme.model.Recipe;
 import com.relyon.feedme.model.User;
-import com.relyon.feedme.recyclerviews.RecipeRecyclerViewAdapter;
 
 import java.time.LocalDate;
 
@@ -61,13 +58,17 @@ public class MainActivity extends AppCompatActivity {
 
         account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
+        mAuth.signOut();
+        googleSignInClient.signOut();
+        startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
+
         authStateListener = firebaseAuth -> {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             if (firebaseUser != null) {
                 createDbConnection();
                 retrieveUserFromDB(firebaseUser.getUid());
             } else {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
             }
         };
 
@@ -119,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
                             Util.setUser(user);
                         }
                         Util.getDb().collection("users").document(Util.getUser().getId()).collection("favoriteRecipes").get();
+                        /*List<Review> reviews = Arrays.asList(new Review(Util.getUser().getId(), "59edc10c-e0ad-418a-b6bf-c756e01ec546", 3.5f, "Presta", "Muito bom como pós treino no verão"));
+                        Util.getDb().collection("recipes").document("59edc10c-e0ad-418a-b6bf-c756e01ec546").update("reviews", reviews);
+
+                        List<String> neededUtensils = Arrays.asList("Batedeira", "Forno", "Liquidificador");
+                        Util.getDb().collection("recipes").document("59edc10c-e0ad-418a-b6bf-c756e01ec546").update("neededUtensils", neededUtensils);*/
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
                     }
@@ -126,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private User createUser(String id) {
-        User user = new User(id, account.getDisplayName(), account.getEmail(), LocalDate.now().toString(), 0.0);
+        User user = new User(id, account.getDisplayName(), account.getEmail(), LocalDate.now().toString(), 0.0, account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : null);
         db.collection("users").document(id)
                 .set(user);
         return user;

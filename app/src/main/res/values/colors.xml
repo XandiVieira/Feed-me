@@ -14,6 +14,7 @@
     <color name="white_alpha">#99FFFFFF</color>
     <color name="primary">#FFD23F</color>
     <color name="accent">#DE7457</color>
+    <color name="green_light">#F1FFD2</color>
     <color name="green">#B1E145</color>
     <color name="green_dark">#419C4F</color>
     <color name="custom_white">#F3FCF0</color>

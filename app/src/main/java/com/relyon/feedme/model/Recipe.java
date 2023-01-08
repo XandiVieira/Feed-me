@@ -1,5 +1,7 @@
 package com.relyon.feedme.model;
 
+import com.relyon.feedme.model.enums.RecipeCategoryEnum;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +14,7 @@ public class Recipe implements Serializable {
     private String name;
     private List<Ingredient> ingredients;
     private List<String> stepByStep;
-    private List<String> utensilsNeeded;
+    private List<String> neededUtensils;
     private List<Review> reviews;
     private int preparationTime;
     private String observations;
@@ -20,18 +22,19 @@ public class Recipe implements Serializable {
     private int numberOfRates;
     private Long creationDate;
     private String difficulty;
+    private RecipeCategoryEnum recipeCategory;
     private String photoUrl;
 
     public Recipe() {
     }
 
-    public Recipe(String userId, String name, List<Ingredient> ingredients, List<String> stepByStep, List<String> utensilsNeeded, List<Review> reviews, int preparationTime, String observations, String difficulty) {
+    public Recipe(String userId, String name, List<Ingredient> ingredients, List<String> stepByStep, List<String> neededUtensils, List<Review> reviews, int preparationTime, String observations, String difficulty) {
         this.id = UUID.randomUUID().toString();
         this.userId = userId;
         this.name = name;
         this.ingredients = ingredients;
         this.stepByStep = stepByStep;
-        this.utensilsNeeded = utensilsNeeded;
+        this.neededUtensils = neededUtensils;
         this.reviews = reviews;
         this.preparationTime = preparationTime;
         this.observations = observations;
@@ -137,12 +140,12 @@ public class Recipe implements Serializable {
         this.photoUrl = photoUrl;
     }
 
-    public List<String> getUtensilsNeeded() {
-        return utensilsNeeded;
+    public List<String> getNeededUtensils() {
+        return neededUtensils;
     }
 
-    public void setUtensilsNeeded(List<String> utensilsNeeded) {
-        this.utensilsNeeded = utensilsNeeded;
+    public void setNeededUtensils(List<String> neededUtensils) {
+        this.neededUtensils = neededUtensils;
     }
 
     public List<Review> getReviews() {

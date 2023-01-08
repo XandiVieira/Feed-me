@@ -8,11 +8,14 @@ public class Review implements Serializable {
     private String id;
     private String reviewerId;
     private String recipeId;
-    private double rate;
+    private Float rate;
     private String reviewTitle;
     private String comment;
 
-    public Review(String reviewerId, String recipeId, double rate, String reviewTitle, String comment) {
+    public Review() {
+    }
+
+    public Review(String reviewerId, String recipeId, Float rate, String reviewTitle, String comment) {
         this.id = UUID.randomUUID().toString();
         this.reviewerId = reviewerId;
         this.recipeId = recipeId;
@@ -45,11 +48,11 @@ public class Review implements Serializable {
         this.recipeId = recipeId;
     }
 
-    public double getRate() {
+    public Float getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(Float rate) {
         this.rate = rate;
     }
 

@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BottomNavigationViewTextStyle">
         <item name="android:fontFamily">@font/urbanist_bold</item>
+    </style>
+
+    <style name="customRoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+        <item name="color">@color/white</item>
+        <item name="cornerSizeBottomLeft">96dp</item>
+    </style>
+
+    <style name="customRoundedImageView2" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+        <item name="color">@color/white</item>
+        <item name="cornerSizeBottomRight">96dp</item>
     </style>
 </resources>

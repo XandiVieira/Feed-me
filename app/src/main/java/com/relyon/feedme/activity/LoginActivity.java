@@ -51,6 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         binding.googleButton.setSize(SignInButton.SIZE_WIDE);
         binding.googleButton.setColorScheme(SignInButton.COLOR_AUTO);
         binding.googleButton.setOnClickListener(view1 -> signInGoogle());
+
+        binding.backButton.setOnClickListener(view1 -> {
+            startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
+        });
     }
 
     private void signInGoogle() {

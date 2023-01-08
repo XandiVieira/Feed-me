@@ -6,7 +6,7 @@
     android:layout_gravity="start"
     android:gravity="start"
     android:orientation="vertical"
-    tools:context=".activity.fragment.recipetabs.PreparationFragment">
+    tools:context=".activity.fragment.recipemenu.PreparationFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/preparation_recycler_view"

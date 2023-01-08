@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +40,8 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     public void onBindViewHolder(ViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
         holder.ingredient.setText(ingredient.getName());
-        holder.quantity.setText(ingredient.getQuantity() + " " + ingredient.getUnitOfMeasurement());
+        String quantityAndUnity = ingredient.getQuantity() + " " + ingredient.getUnitOfMeasurement();
+        holder.quantity.setText(quantityAndUnity);
 
         holder.checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
@@ -54,14 +56,15 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
                 holder.quantity.setTextColor(context.getResources().getColor(R.color.black));
             }
         });
+
+        holder.quantity.setOnClickListener(view -> Toast.makeText(context, quantityAndUnity + " de " + ingredient.getName(), Toast.LENGTH_SHORT).show());
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return ingredients != null ? ingredients.size() : 0;
     }
-
 
     // stores and recycles views as they are scrolled off screen
     public static class ViewHolder extends RecyclerView.ViewHolder {

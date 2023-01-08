@@ -11,16 +11,18 @@ public class User {
     private String memberSince;
     private double points;
     private List<String> favoriteRecipes;
+    private String photoUrl;
 
     public User() {
     }
 
-    public User(String id, String username, String email, String memberSince, double points) {
+    public User(String id, String username, String email, String memberSince, double points, String photoUrl) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.memberSince = memberSince;
         this.points = points;
+        this.photoUrl = photoUrl;
     }
 
     public String getId() {
@@ -83,5 +85,13 @@ public class User {
             favoriteRecipes = new ArrayList<>();
         }
         favoriteRecipes.remove(recipeId);
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

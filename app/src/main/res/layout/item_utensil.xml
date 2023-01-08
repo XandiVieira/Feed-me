@@ -23,6 +23,8 @@
             android:id="@+id/utensil_photo"
             android:layout_width="96dp"
             android:layout_height="96dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_microwave"
             android:layout_marginStart="24dp" />
 
         <TextView

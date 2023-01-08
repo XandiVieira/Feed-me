@@ -37,13 +37,12 @@ public class UtensilRecyclerViewAdapter extends RecyclerView.Adapter<UtensilRecy
     public void onBindViewHolder(ViewHolder holder, int position) {
         String utensil = utensils.get(position);
         holder.utensil.setText(utensil);
-        holder.utensil.setBackgroundResource(R.drawable.home_background);
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return utensils.size();
+        return utensils != null ? utensils.size() : 0;
     }
 
 
