@@ -8,9 +8,19 @@
     tools:context=".activity.MainActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="PROFILE"
         android:textColor="@color/black"
         android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/accent"
+        android:padding="8dp"
+        android:text="Sair"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 </LinearLayout>

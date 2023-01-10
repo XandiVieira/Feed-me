@@ -15,7 +15,9 @@ import com.google.android.material.shape.CornerFamily;
 import com.relyon.feedme.R;
 
 public class OnBoardingAdapter extends PagerAdapter {
-    Context context;
+
+    private Context context;
+
     int sliderAllImages[] = {
             R.drawable.onboarding1,
             R.drawable.onboarding2,
@@ -51,6 +53,7 @@ public class OnBoardingAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_onboarding, container, false);
+
         ShapeableImageView sliderImage = (ShapeableImageView) view.findViewById(R.id.sliderImage);
         TextView sliderTitle = (TextView) view.findViewById(R.id.sliderTitle);
         TextView sliderDesc = (TextView) view.findViewById(R.id.sliderDesc);

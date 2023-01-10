@@ -9,7 +9,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
+import com.relyon.feedme.Util;
 import com.relyon.feedme.databinding.ActivityOnBoardingBinding;
 import com.relyon.feedme.recyclerviews.OnBoardingAdapter;
 
@@ -18,6 +24,9 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
     private ActivityOnBoardingBinding binding;
     private TextView[] dots;
     private OnBoardingAdapter viewPagerAdapter;
+    private FirebaseAuth mAuth;
+    private Handler handler;
+    private Runnable runnable = this;
 
     ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -32,6 +41,8 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
             } else {
                 binding.nextButton.setText("Continuar");
             }
+            handler.removeCallbacks(runnable);
+            handler.postDelayed(runnable, 4000);
         }
 
         @Override
@@ -44,11 +55,31 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
         super.onCreate(savedInstanceState);
         binding = ActivityOnBoardingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mAuth = FirebaseAuth.getInstance();
+        /*mAuth.signOut();
+        GoogleSignInClient googleSignInClient;
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+        googleSignInClient.signOut();*/
+
+        Util.auth = mAuth;
+        Util.db = FirebaseFirestore.getInstance();
+
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+
         binding.nextButton.setOnClickListener(v -> {
             if (getItem(0) < 2)
                 binding.slideViewPager.setCurrentItem(getItem(1), true);
             else {
-                Intent i = new Intent(OnBoardingActivity.this, LoginActivity.class);
+                Intent i = new Intent(OnBoardingActivity.this, RegistrationActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -57,7 +88,8 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
         binding.slideViewPager.setAdapter(viewPagerAdapter);
         setDotIndicator(0);
         binding.slideViewPager.addOnPageChangeListener(viewPagerListener);
-        new Handler().postDelayed(this, 4000);
+        handler = new Handler();
+        handler.postDelayed(this, 4000);
     }
 
     public void setDotIndicator(int position) {
@@ -85,6 +117,6 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
         } else {
             binding.slideViewPager.setCurrentItem(binding.slideViewPager.getCurrentItem() + 1);
         }
-        new Handler().postDelayed(this, 5500);
+        handler.postDelayed(this, 4000);
     }
 }

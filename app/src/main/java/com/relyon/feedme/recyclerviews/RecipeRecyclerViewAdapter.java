@@ -17,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
 import com.relyon.feedme.activity.MainActivity;
@@ -32,8 +33,8 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     private LayoutInflater mInflater;
     private final Context context;
     private Activity activity;
-    Animation animZoomIn;
-    Animation animZoomOut;
+    private Animation animZoomIn;
+    private Animation animZoomOut;
 
     public RecipeRecyclerViewAdapter(Context context, Activity activity, List<Recipe> recipes) {
         this.mInflater = LayoutInflater.from(context);
@@ -88,7 +89,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     }
 
     private void updateFavorite(String id, ImageView favorite, boolean isFavorite) {
-        Util.getDb().collection("users").document(Util.getUser().getId()).collection("favoriteRecipes")
+        Util.db.collection("users").document(Util.user.getId()).collection("favoriteRecipes")
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
                         List<String> list = new ArrayList<>();
@@ -97,7 +98,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
                         }
                     }
                     updateFavoriteListLocally(id, isFavorite, favorite);
-                    updateFavoriteLisDB(Util.getUser().getFavoriteRecipes());
+                    updateFavoriteLisDB(Util.user.getFavoriteRecipes());
                 });
     }
 
@@ -105,20 +106,20 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         favorite.startAnimation(animZoomIn);
         favorite.startAnimation(animZoomOut);
         if (isFavorite) {
-            Util.getUser().removeRecipeToFavorites(id);
+            Util.user.removeRecipeToFavorites(id);
             favorite.setBackgroundResource(R.drawable.ic_heart);
         } else {
-            Util.getUser().addRecipeToFavorites(id);
+            Util.user.addRecipeToFavorites(id);
             favorite.setBackgroundResource(R.drawable.ic_heart_filled);
         }
     }
 
     private void updateFavoriteLisDB(List<String> list) {
-        Util.getDb().collection("users").document(Util.getUser().getId()).update("favoriteRecipes", list);
+        Util.db.collection("users").document(Util.user.getId()).update("favoriteRecipes", list);
     }
 
     private boolean isFavorite(String recipe, ImageView favorite) {
-        boolean contains = Util.getUser().getFavoriteRecipes() != null && Util.getUser().getFavoriteRecipes().contains(recipe);
+        boolean contains = Util.user.getFavoriteRecipes() != null && Util.user.getFavoriteRecipes().contains(recipe);
         if (contains) {
             favorite.setBackgroundResource(R.drawable.ic_heart_filled);
         } else {

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
 import com.relyon.feedme.databinding.ActivityAddRecipeBinding;
@@ -84,7 +85,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     private void getUnitsOfMeasurement() {
-        Util.getDb().collection("units").get().addOnCompleteListener(task -> {
+        Util.db.collection("units").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 unitOfMeasurement = new ArrayList<>();
                 task.getResult().forEach(result -> {
@@ -101,12 +102,12 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     private void createNewRecipe(List<Ingredient> ingredients, List<String> steps, String title, int time, String observations, String difficulty) {
-        Recipe recipe = new Recipe(Util.getUser().getId(), title, ingredients, steps, new ArrayList<>(), new ArrayList<>(), time, observations, difficulty);
+        Recipe recipe = new Recipe(Util.user.getId(), title, ingredients, steps, new ArrayList<>(), new ArrayList<>(), time, observations, difficulty);
         saveNewRecipe(recipe);
     }
 
     private void saveNewRecipe(Recipe recipe) {
-        Util.getDb().collection("recipes").document(recipe.getId())
+        Util.db.collection("recipes").document(recipe.getId())
                 .set(recipe);
         Toast.makeText(getApplicationContext(), "Receita criada!", Toast.LENGTH_SHORT).show();
     }

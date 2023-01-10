@@ -1,8 +1,6 @@
 package com.relyon.feedme.recyclerviews;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
 import com.relyon.feedme.model.Review;
@@ -48,7 +47,7 @@ public class ReviewRecyclerViewAdapter extends RecyclerView.Adapter<ReviewRecycl
         holder.review.setText(review.getComment());
         holder.reviewTitle.setText(review.getReviewTitle());
 
-        Util.getDb().collection("users").document(review.getReviewerId()).get().addOnCompleteListener(task -> {
+        Util.db.collection("users").document(review.getReviewerId()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
@@ -60,7 +59,7 @@ public class ReviewRecyclerViewAdapter extends RecyclerView.Adapter<ReviewRecycl
             }
         });
 
-        Glide.with(context).load(Util.getUser().getPhotoUrl()).circleCrop().into(holder.userPhoto);
+        Glide.with(context).load(Util.user.getPhotoUrl()).circleCrop().into(holder.userPhoto);
     }
 
     // total number of rows

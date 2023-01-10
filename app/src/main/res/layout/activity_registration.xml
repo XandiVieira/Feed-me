@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:fontFamily="@font/urbanist_bold"
-            android:text="Login"
+            android:text="Cadastrar"
             android:textColor="@color/black"
             android:textSize="16dp" />
     </LinearLayout>
@@ -39,7 +39,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="64dp"
         android:fontFamily="@font/urbanist_bold"
-        android:text="Entre agora mesmo e se delicie conosco!"
+        android:text="Crie uma conta e se delicie conosco!"
         android:textColor="@color/grey_dark"
         android:textSize="16dp" />
 
@@ -102,16 +102,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Não tem conta ainda? "
+                    android:text="Já tem uma conta? "
                     android:textColor="@color/grey_dark"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/register_link"
+                    android:id="@+id/login_link"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Criar conta"
+                    android:text="Entre aqui! "
                     android:textColor="@color/accent"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -124,13 +124,13 @@
                 app:cardCornerRadius="16dp">
 
                 <Button
-                    android:id="@+id/login_button"
+                    android:id="@+id/register_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/accent"
                     android:fontFamily="@font/urbanist_bold"
                     android:paddingHorizontal="16dp"
-                    android:text="Entrar"
+                    android:text="Crie sua conta"
                     android:textSize="16dp" />
             </androidx.cardview.widget.CardView>
 

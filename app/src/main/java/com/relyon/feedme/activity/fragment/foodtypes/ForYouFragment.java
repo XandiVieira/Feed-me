@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
-import com.relyon.feedme.recyclerviews.RecipeRecyclerViewAdapter;
 import com.relyon.feedme.Util;
 import com.relyon.feedme.model.Recipe;
+import com.relyon.feedme.recyclerviews.RecipeRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,14 +47,12 @@ public class ForYouFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.for_you_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         getRecipesFromDB(recyclerView);
-
         return view;
     }
 
     private void getRecipesFromDB(RecyclerView recyclerView) {
-        Util.getDb().collection("recipes").get().addOnCompleteListener(task -> {
+        Util.db.collection("recipes").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 List<Recipe> recipes = new ArrayList<>();
                 task.getResult().forEach(result -> {

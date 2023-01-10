@@ -12,11 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
+import com.relyon.feedme.adapter.viewpageradapters.RecipeViewPagerAdapter;
 import com.relyon.feedme.databinding.FragmentRecipeBinding;
 import com.relyon.feedme.model.Recipe;
-import com.relyon.feedme.adapter.viewpageradapters.RecipeViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class RecipeFragment extends Fragment {
     }
 
     private boolean isFavorite(String recipe, ImageView favorite) {
-        boolean contains = Util.getUser().getFavoriteRecipes() != null && Util.getUser().getFavoriteRecipes().contains(recipe);
+        boolean contains = Util.user.getFavoriteRecipes() != null && Util.user.getFavoriteRecipes().contains(recipe);
         if (contains) {
             favorite.setBackgroundResource(R.drawable.ic_heart_filled);
         } else {
@@ -66,7 +67,7 @@ public class RecipeFragment extends Fragment {
     }
 
     private void updateFavorite(String id, ImageView favorite, boolean isFavorite) {
-        Util.getDb().collection("users").document(Util.getUser().getId()).collection("favoriteRecipes")
+        Util.db.collection("users").document(Util.user.getId()).collection("favoriteRecipes")
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
                         List<String> list = new ArrayList<>();
@@ -75,7 +76,7 @@ public class RecipeFragment extends Fragment {
                         }
                     }
                     updateFavoriteListLocally(id, isFavorite, favorite);
-                    updateFavoriteLisDB(Util.getUser().getFavoriteRecipes());
+                    updateFavoriteLisDB(Util.user.getFavoriteRecipes());
                 });
     }
 
@@ -83,16 +84,16 @@ public class RecipeFragment extends Fragment {
         favorite.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.zoom_in));
         favorite.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.zoom_out));
         if (isFavorite) {
-            Util.getUser().removeRecipeToFavorites(id);
+            Util.user.removeRecipeToFavorites(id);
             favorite.setBackgroundResource(R.drawable.ic_heart);
         } else {
-            Util.getUser().addRecipeToFavorites(id);
+            Util.user.addRecipeToFavorites(id);
             favorite.setBackgroundResource(R.drawable.ic_heart_filled);
         }
     }
 
     private void updateFavoriteLisDB(List<String> list) {
-        Util.getDb().collection("users").document(Util.getUser().getId()).update("favoriteRecipes", list);
+        Util.db.collection("users").document(Util.user.getId()).update("favoriteRecipes", list);
     }
 
     private void buildFragment() {

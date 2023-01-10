@@ -35,7 +35,7 @@
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/font/segoe.xml" value="0.2574055158324821" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/font/urbanist.xml" value="0.2487231869254341" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_add_recipe.xml" value="0.40925925925925927" />
-        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_login.xml" value="0.46557040082219936" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_main.xml" value="0.268346923647146" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_main2.xml" value="0.2296875" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_naviation.xml" value="0.24375" />
@@ -43,6 +43,7 @@
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_new_recipe.xml" value="0.1765625" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_on_boarding.xml" value="0.25" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_recipe.xml" value="0.15893037336024218" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_registration.xml" value="0.5" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment/fragment_for_you.xml" value="0.32464825429911415" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment/fragment_lactose_free.xml" value="0.18070652173913043" />
@@ -58,7 +59,7 @@
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_onboarding2.xml" value="0.18" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_onboarding3.xml" value="0.18" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_preparation.xml" value="0.25" />
-        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_ranking.xml" value="0.1" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_recipe.xml" value="0.32918395573997233" />
         <entry key="..\:/Users/Xandi/StudioProjects/FeedMe/app/src/main/res/layout/fragment_reviews.xml" value="0.1" />

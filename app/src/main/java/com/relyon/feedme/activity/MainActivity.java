@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,13 +31,11 @@ import java.time.LocalDate;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseFirestore db;
     private GoogleSignInClient googleSignInClient;
-
-    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
         googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
-        account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-
-        mAuth.signOut();
-        googleSignInClient.signOut();
-        startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
-
         authStateListener = firebaseAuth -> {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             if (firebaseUser != null) {
                 createDbConnection();
                 retrieveUserFromDB(firebaseUser.getUid());
             } else {
-                startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         };
 
@@ -109,22 +100,15 @@ public class MainActivity extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            User user = document.toObject(User.class);
-                            Util.setUser(user);
+                            Util.user = document.toObject(User.class);
                         } else {
                             Log.d(TAG, "No such document");
                             User user = document.toObject(User.class);
-                            if (user == null && account != null) {
+                            if (user == null && mAuth.getCurrentUser() != null) {
                                 user = createUser(id);
+                                Util.user = user;
                             }
-                            Util.setUser(user);
                         }
-                        Util.getDb().collection("users").document(Util.getUser().getId()).collection("favoriteRecipes").get();
-                        /*List<Review> reviews = Arrays.asList(new Review(Util.getUser().getId(), "59edc10c-e0ad-418a-b6bf-c756e01ec546", 3.5f, "Presta", "Muito bom como pós treino no verão"));
-                        Util.getDb().collection("recipes").document("59edc10c-e0ad-418a-b6bf-c756e01ec546").update("reviews", reviews);
-
-                        List<String> neededUtensils = Arrays.asList("Batedeira", "Forno", "Liquidificador");
-                        Util.getDb().collection("recipes").document("59edc10c-e0ad-418a-b6bf-c756e01ec546").update("neededUtensils", neededUtensils);*/
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
                     }
@@ -132,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private User createUser(String id) {
-        User user = new User(id, account.getDisplayName(), account.getEmail(), LocalDate.now().toString(), 0.0, account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : null);
+        User user;
+        user = new User(id, mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getEmail(), LocalDate.now().toString(), 0.0, mAuth.getCurrentUser().getPhotoUrl() != null ? mAuth.getCurrentUser().getPhotoUrl().toString() : null);
         db.collection("users").document(id)
                 .set(user);
         return user;
@@ -140,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createDbConnection() {
         db = FirebaseFirestore.getInstance();
-        Util.setDb(db);
+        Util.db = db;
     }
 
     @Override

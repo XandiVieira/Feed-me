@@ -24,28 +24,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
-import com.relyon.feedme.databinding.ActivityLoginBinding;
+import com.relyon.feedme.databinding.ActivityRegistrationBinding;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
-    private ActivityLoginBinding binding;
-    private GoogleSignInClient googleSignInClient;
+    private ActivityRegistrationBinding binding;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore firebaseFirestore;
+    private GoogleSignInClient googleSignInClient;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-
-        View view = binding.getRoot();
-        setContentView(view);
+        binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -58,34 +52,31 @@ public class LoginActivity extends AppCompatActivity {
         binding.googleButton.setSize(SignInButton.SIZE_WIDE);
         binding.googleButton.setColorScheme(SignInButton.COLOR_AUTO);
         binding.googleButton.setOnClickListener(view1 -> signInGoogle());
-        setGooglePlusButtonText(binding.googleButton, "Fazer Login");
+        setGooglePlusButtonText(binding.googleButton, "Criar Conta");
 
-        binding.registerLink.setOnClickListener(view1 -> {
-            startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
+        binding.loginLink.setOnClickListener(view1 -> {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         });
 
-        binding.backButton.setOnClickListener(view1 -> {
-            startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
-        });
-
-        binding.loginButton.setOnClickListener(view1 -> {
+        binding.registerButton.setOnClickListener(view1 -> {
             Editable email = binding.emailInput.getText();
             Editable password = binding.passwordInput.getText();
-            if (credentialsAreValid(email, password))
-                mAuth.signInWithEmailAndPassword(email.toString(), password.toString())
+            if (credentialsAreValid(email, password)) {
+                mAuth.createUserWithEmailAndPassword(email.toString(), password.toString())
                         .addOnCompleteListener(this, task -> {
                             if (task.isSuccessful()) {
-                                if (task.getResult().getAdditionalUserInfo() != null && task.getResult().getAdditionalUserInfo().isNewUser()) {
-                                    onBoardingActivity();
-                                } else {
-                                    homeActivity();
-                                }
+                                loginActivity();
                             } else {
                                 Log.w("Fail", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
+            }
+        });
+
+        binding.googleButton.setOnClickListener(view1 -> {
+            signInGoogle();
         });
     }
 
@@ -100,17 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
         }
-    }
-
-    private boolean credentialsAreValid(Editable email, Editable password) {
-        if (TextUtils.isEmpty(email.toString())) {
-            binding.emailInput.setError("E-mail não pode estar vazio.");
-        } else if (TextUtils.isEmpty(password.toString())) {
-            binding.passwordInput.setError("Senha não pode estar vazia.");
-        } else {
-            return true;
-        }
-        return false;
     }
 
     private void signInGoogle() {
@@ -138,11 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(token, null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (task.getResult().getAdditionalUserInfo() != null && task.getResult().getAdditionalUserInfo().isNewUser()) {
-                    onBoardingActivity();
-                } else {
-                    homeActivity();
-                }
+                homeActivity();
                 finish();
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
@@ -150,13 +126,29 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void homeActivity() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    private boolean credentialsAreValid(Editable email, Editable password) {
+        if (TextUtils.isEmpty(email.toString())) {
+            binding.emailInput.setError("E-mail não pode estar vazio.");
+        } else if (TextUtils.isEmpty(password.toString())) {
+            binding.passwordInput.setError("Senha não pode estar vazia.");
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+    private void loginActivity() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
 
     private void onBoardingActivity() {
         Intent intent = new Intent(getApplicationContext(), OnBoardingActivity.class);
+        startActivity(intent);
+    }
+
+    private void homeActivity() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 }
