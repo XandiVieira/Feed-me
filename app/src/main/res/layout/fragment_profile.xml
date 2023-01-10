@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:background="@color/accent"
         android:padding="8dp"
-        android:text="Sair"
+        android:text="@string/leave"
         android:textColor="@color/white"
         android:textSize="16sp" />
 </LinearLayout>

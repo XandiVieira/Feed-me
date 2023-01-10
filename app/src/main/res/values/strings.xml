@@ -37,4 +37,41 @@
     <string name="onboarding_description_1">A receita perfeita está a apenas um toque de distância. Na dúvida sobre o rango de hoje? Lasanha ou Pizza? Vem que a gente te ajuda!</string>
     <string name="onboarding_description_2">Troque receitas com qualquer um ao redor do mundo gratuitamente! Somos seu novo livro de receitas, sempre na palma da sua mão.</string>
     <string name="onboarding_description_3">Por aqui, você escolhe o que come. Contamos com filtros exclusivos para intolerantes, veganos, vegetarianos, celíacos, e até mesmo para os esfomeados de plantão tentando cozinhar com o que sobrou na geladeira!</string>
+    <string name="create_your_acc">Crie sua conta</string>
+    <string name="fast">Rápida</string>
+    <string name="regular">Normal</string>
+    <string name="elaborate">Elaborada</string>
+    <string name="leave">Sair</string>
+
+    <!--TextViews-->
+    <string name="login">Entrar</string>
+    <string name="login_slogan">Entre agora mesmo e se delicie conosco!</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="do_not_have_an_acc_yet">Não tem conta ainda?</string>
+    <string name="create_acc">Criar conta</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="step_by_step">Passo a Passo</string>
+    <string name="register">Cadastrar</string>
+    <string name="register_slogan">Crie uma conta e se delicie conosco!</string>
+    <string name="already_have_an_acc">Já tem uma conta?</string>
+    <string name="login_here">Entre aqui!</string>
+    <string name="search_here">Pesquise aqui</string>
+    <string name="ingredient">Ingrediente</string>
+    <string name="quantity">Quantidade</string>
+    <string name="title">Título</string>
+    <string name="description">Descrição</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet. Qui quia internos mollitia corrupti ut unde voluptates vel rerum perferendis non officia accusamus.</string>
+    <string name="list_number">1.</string>
+    <string name="time">Tempo</string>
+    <string name="hard">Difícil</string>
+    <string name="username">Username</string>
+    <string name="review_title">Título da avaliação</string>
+    <string name="utensil">Utensílio</string>
+
+    <!--Menus-->
+    <string name="profile">Perfil</string>
+    <string name="ranking">Ranking</string>
+    <string name="home">Home</string>
+    <string name="alerts">Alertas</string>
 </resources>

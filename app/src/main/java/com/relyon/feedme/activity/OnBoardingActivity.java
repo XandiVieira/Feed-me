@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,9 +36,11 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
 
         @Override
         public void onPageSelected(int position) {
+            binding.accessYourAccText.setVisibility(View.INVISIBLE);
             setDotIndicator(position);
             if (position == 2) {
                 binding.nextButton.setText("Cadastro");
+                binding.accessYourAccText.setVisibility(View.VISIBLE);
             } else {
                 binding.nextButton.setText("Continuar");
             }
@@ -57,16 +60,6 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-        /*mAuth.signOut();
-        GoogleSignInClient googleSignInClient;
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
-                GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
-        googleSignInClient.signOut();*/
 
         Util.auth = mAuth;
         Util.db = FirebaseFirestore.getInstance();
@@ -90,6 +83,10 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
         binding.slideViewPager.addOnPageChangeListener(viewPagerListener);
         handler = new Handler();
         handler.postDelayed(this, 4000);
+
+        binding.accessYourAccText.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        });
     }
 
     public void setDotIndicator(int position) {

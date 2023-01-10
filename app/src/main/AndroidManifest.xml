@@ -31,9 +31,6 @@
             android:name=".activity.AddRecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.NewRecipeActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.ProfileActivity"
             android:exported="false" />
         <activity

@@ -58,7 +58,7 @@
                     android:checked="false"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Rápida"
+                    android:text="@string/fast"
                     android:textColor="@drawable/speed_button_text_color"
                     android:textSize="10dp" />
 
@@ -71,7 +71,7 @@
                     android:checked="true"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Normal"
+                    android:text="@string/regular"
                     android:textColor="@drawable/speed_button_text_color"
                     android:textSize="10dp" />
 
@@ -84,7 +84,7 @@
                     android:checked="false"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Elaborada"
+                    android:text="@string/elaborate"
                     android:textColor="@drawable/speed_button_text_color"
                     android:textSize="10dp" />
 
@@ -119,13 +119,13 @@
                     android:layout_marginStart="10dp"
                     android:backgroundTint="@color/white"
                     android:gravity="bottom"
-                    android:hint="Pesquise aqui"
+                    android:hint="@string/search_here"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey"
                     android:textSize="12dp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4.5"
                     android:gravity="end"

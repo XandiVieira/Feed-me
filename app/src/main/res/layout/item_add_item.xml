@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:hint="ingredient"
+                android:hint="@string/ingredient"
                 android:paddingHorizontal="5dp" />
         </LinearLayout>
 
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Qtd"
+                android:hint="@string/quantity"
                 android:inputType="number"
                 android:paddingHorizontal="5dp" />
 

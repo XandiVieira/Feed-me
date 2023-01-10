@@ -17,7 +17,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
 import com.relyon.feedme.activity.fragment.bottommenu.AlertFragment;
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
-    private FirebaseFirestore db;
     private GoogleSignInClient googleSignInClient;
 
     @Override
@@ -56,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         authStateListener = firebaseAuth -> {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             if (firebaseUser != null) {
-                createDbConnection();
                 retrieveUserFromDB(firebaseUser.getUid());
             } else {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -67,19 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navView.setOnItemSelectedListener(item -> {
 
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.navigation_ranking:
-                    replaceFragment(new RankingFragment());
-                    break;
-                case R.id.navigation_profile:
-                    replaceFragment(new ProfileFragment());
-                    break;
-                case R.id.navigation_alerts:
-                    replaceFragment(new AlertFragment());
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.navigation_home) {
+                replaceFragment(new HomeFragment());
+            } else if (itemId == R.id.navigation_ranking) {
+                replaceFragment(new RankingFragment());
+            } else if (itemId == R.id.navigation_profile) {
+                replaceFragment(new ProfileFragment());
+            } else if (itemId == R.id.navigation_alerts) {
+                replaceFragment(new AlertFragment());
             }
 
             return true;
@@ -94,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void retrieveUserFromDB(String id) {
-        db.collection("users").document(id)
+        Util.db.collection("users").document(id)
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
@@ -118,14 +111,9 @@ public class MainActivity extends AppCompatActivity {
     private User createUser(String id) {
         User user;
         user = new User(id, mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getEmail(), LocalDate.now().toString(), 0.0, mAuth.getCurrentUser().getPhotoUrl() != null ? mAuth.getCurrentUser().getPhotoUrl().toString() : null);
-        db.collection("users").document(id)
+        Util.db.collection("users").document(id)
                 .set(user);
         return user;
-    }
-
-    private void createDbConnection() {
-        db = FirebaseFirestore.getInstance();
-        Util.db = db;
     }
 
     @Override

@@ -49,7 +49,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_weight="1.5"
                 android:fontFamily="@font/urbanist_bold"
-                android:text="Ingredient"
+                android:text="@string/ingredient"
                 android:textColor="@color/grey_dark"
                 android:textSize="16dp" />
 

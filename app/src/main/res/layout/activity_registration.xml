@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:fontFamily="@font/urbanist_bold"
-            android:text="Cadastrar"
+            android:text="@string/register"
             android:textColor="@color/black"
             android:textSize="16dp" />
     </LinearLayout>
@@ -39,7 +39,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="64dp"
         android:fontFamily="@font/urbanist_bold"
-        android:text="Crie uma conta e se delicie conosco!"
+        android:text="@string/register_slogan"
         android:textColor="@color/grey_dark"
         android:textSize="16dp" />
 
@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="E-mail"
+                android:text="@string/email"
                 android:textColor="@color/black" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/accent"
-                android:hint="E-mail"
+                android:hint="@string/email"
                 android:inputType="text"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Senha"
+                android:text="@string/password"
                 android:textColor="@color/black" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/accent"
-                android:hint="Senha"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Já tem uma conta? "
+                    android:text="@string/already_have_an_acc"
                     android:textColor="@color/grey_dark"
                     android:textSize="12sp" />
 
@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Entre aqui! "
+                    android:text="@string/login_here"
                     android:textColor="@color/accent"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -130,7 +130,7 @@
                     android:background="@color/accent"
                     android:fontFamily="@font/urbanist_bold"
                     android:paddingHorizontal="16dp"
-                    android:text="Crie sua conta"
+                    android:text="@string/create_your_acc"
                     android:textSize="16dp" />
             </androidx.cardview.widget.CardView>
 

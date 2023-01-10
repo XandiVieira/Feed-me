@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.AddRecipeActivity">
 
@@ -27,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Ingredients" />
+                android:text="@string/ingredients" />
 
             <LinearLayout
                 android:id="@+id/ingredients_list"
@@ -40,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/urbanist"
-                android:text="Step By Step" />
+                android:text="@string/step_by_step" />
 
             <LinearLayout
                 android:id="@+id/steps_list"

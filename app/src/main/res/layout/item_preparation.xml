@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/urbanist_bold"
-        android:text="1."
+        android:text="@string/list_number"
         android:textColor="@color/accent"
         android:textSize="16dp" />
 
@@ -26,7 +26,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="9dp"
         android:fontFamily="@font/segoe_regular"
-        android:text="Lorem ipsum dolor sit amet. Qui quia internos mollitia corrupti ut unde voluptates vel rerum perferendis non officia accusamus."
+        android:text="@string/lorem_ipsum"
         android:textColor="@color/grey_dark"
         android:textSize="16dp" />
 </LinearLayout>
