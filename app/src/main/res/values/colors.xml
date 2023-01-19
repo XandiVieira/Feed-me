@@ -9,14 +9,20 @@
     <color name="light_grey_alpha">#E6C0BCBC</color>
     <color name="grey">#828282</color>
     <color name="grey_dark">#666666</color>
+    <color name="grey_darker">#333333</color>
     <color name="grey_alpha">#66666666</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha">#99FFFFFF</color>
     <color name="primary">#FFD23F</color>
     <color name="accent">#DE7457</color>
+    <color name="red">#FF0000</color>
     <color name="green_light">#F1FFD2</color>
     <color name="green">#B1E145</color>
     <color name="green_dark">#419C4F</color>
     <color name="custom_white">#F3FCF0</color>
     <color name="custom_black">#1F271B</color>
+    <color name="button_text">#FFFFFF</color>
+    <color name="text">#666666</color>
+    <color name="dark_text">#666666</color>
+    <color name="star">#FBBC05</color>
 </resources>

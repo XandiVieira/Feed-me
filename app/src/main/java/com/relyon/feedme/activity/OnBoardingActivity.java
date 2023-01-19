@@ -10,9 +10,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.relyon.feedme.R;
@@ -39,10 +36,10 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
             binding.accessYourAccText.setVisibility(View.INVISIBLE);
             setDotIndicator(position);
             if (position == 2) {
-                binding.nextButton.setText("Cadastro");
+                binding.continueButton.setText("Cadastro");
                 binding.accessYourAccText.setVisibility(View.VISIBLE);
             } else {
-                binding.nextButton.setText("Continuar");
+                binding.continueButton.setText("Continuar");
             }
             handler.removeCallbacks(runnable);
             handler.postDelayed(runnable, 4000);
@@ -65,10 +62,14 @@ public class OnBoardingActivity extends AppCompatActivity implements Runnable {
         Util.db = FirebaseFirestore.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            if (mAuth.getCurrentUser().isEmailVerified()) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            } else {
+                startActivity(new Intent(getApplicationContext(), EmailConfirmationActivity.class));
+            }
         }
 
-        binding.nextButton.setOnClickListener(v -> {
+        binding.continueButton.setOnClickListener(v -> {
             if (getItem(0) < 2)
                 binding.slideViewPager.setCurrentItem(getItem(1), true);
             else {

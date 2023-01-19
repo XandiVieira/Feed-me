@@ -45,7 +45,7 @@ public class OnBoardingAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == (LinearLayout) object;
+        return view == object;
     }
 
     @NonNull
@@ -54,9 +54,9 @@ public class OnBoardingAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_onboarding, container, false);
 
-        ShapeableImageView sliderImage = (ShapeableImageView) view.findViewById(R.id.sliderImage);
-        TextView sliderTitle = (TextView) view.findViewById(R.id.sliderTitle);
-        TextView sliderDesc = (TextView) view.findViewById(R.id.sliderDesc);
+        ShapeableImageView sliderImage = view.findViewById(R.id.sliderImage);
+        TextView sliderTitle = view.findViewById(R.id.slider_title);
+        TextView sliderDesc = view.findViewById(R.id.slider_description);
         sliderImage.setImageResource(sliderAllImages[position]);
         sliderTitle.setText(this.sliderAllTitle[position]);
         sliderDesc.setText(this.sliderAllDesc[position]);

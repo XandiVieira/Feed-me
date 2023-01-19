@@ -56,11 +56,12 @@
                     android:background="@drawable/speed_button_shape"
                     android:button="@android:color/transparent"
                     android:checked="false"
+                    android:fontFamily="@font/segoe_bold"
                     android:gravity="center"
                     android:paddingVertical="5dp"
                     android:text="@string/fast"
                     android:textColor="@drawable/speed_button_text_color"
-                    android:textSize="10dp" />
+                    android:textSize="@dimen/detail_text" />
 
                 <RadioButton
                     android:id="@+id/radio1"
@@ -70,15 +71,17 @@
                     android:button="@android:color/transparent"
                     android:checked="true"
                     android:gravity="center"
-                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/segoe_bold"
                     android:text="@string/regular"
                     android:textColor="@drawable/speed_button_text_color"
-                    android:textSize="10dp" />
+                    android:textSize="@dimen/subtitle" />
 
                 <RadioButton
                     android:id="@+id/radio2"
                     android:layout_width="72dp"
+                    android:fontFamily="@font/segoe_bold"
                     android:layout_height="24dp"
+                    android:minHeight="24dp"
                     android:background="@drawable/speed_button_shape"
                     android:button="@android:color/transparent"
                     android:checked="false"
@@ -86,8 +89,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/elaborate"
                     android:textColor="@drawable/speed_button_text_color"
-                    android:textSize="10dp" />
-
+                    android:textSize="@dimen/detail_text" />
             </RadioGroup>
 
             <LinearLayout
@@ -121,8 +123,9 @@
                     android:gravity="bottom"
                     android:hint="@string/search_here"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/segoe_small"
                     android:textColorHint="@color/grey"
-                    android:textSize="12dp" />
+                    android:textSize="@dimen/subtitle" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -156,6 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:tabGravity="center"
+            android:background="@color/white"
             app:tabMode="scrollable"
             app:tabIndicatorColor="@color/accent"
             app:tabSelectedTextColor="@color/grey"

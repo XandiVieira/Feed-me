@@ -12,9 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.relyon.feedme.CallActivity;
 import com.relyon.feedme.R;
 import com.relyon.feedme.Util;
+import com.relyon.feedme.activity.MainActivity;
 import com.relyon.feedme.adapter.viewpageradapters.RecipeViewPagerAdapter;
 import com.relyon.feedme.databinding.FragmentRecipeBinding;
 import com.relyon.feedme.model.Recipe;
@@ -42,13 +43,15 @@ public class RecipeFragment extends Fragment {
         binding = FragmentRecipeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        boolean favorite = isFavorite(recipe.getId(), binding.favorite);
+        binding.backButton.setOnClickListener(view -> CallActivity.openActivity(getContext(), MainActivity.class));
+
+        boolean favorite = isFavorite(recipe.getId(), binding.favoriteHeart);
         if (favorite) {
-            binding.favorite.setBackgroundResource(R.drawable.ic_heart_filled);
+            setFavoriteLayoutButton(R.drawable.ic_fav_orange, R.color.white, "Curtiu", R.color.accent);
         }
 
         binding.favorite.setOnClickListener(view -> {
-            updateFavorite(recipe.getId(), binding.favorite, isFavorite(recipe.getId(), binding.favorite));
+            updateFavorite(recipe.getId(), isFavorite(recipe.getId(), binding.favoriteHeart));
         });
 
         buildFragment();
@@ -66,7 +69,7 @@ public class RecipeFragment extends Fragment {
         return contains;
     }
 
-    private void updateFavorite(String id, ImageView favorite, boolean isFavorite) {
+    private void updateFavorite(String id, boolean isFavorite) {
         Util.db.collection("users").document(Util.user.getId()).collection("favoriteRecipes")
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
@@ -75,21 +78,28 @@ public class RecipeFragment extends Fragment {
                             list.add(document.getId());
                         }
                     }
-                    updateFavoriteListLocally(id, isFavorite, favorite);
+                    updateFavoriteListLocally(id, isFavorite);
                     updateFavoriteLisDB(Util.user.getFavoriteRecipes());
                 });
     }
 
-    private void updateFavoriteListLocally(String id, boolean isFavorite, ImageView favorite) {
-        favorite.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.zoom_in));
-        favorite.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.zoom_out));
+    private void updateFavoriteListLocally(String id, boolean isFavorite) {
+        binding.favoriteHeart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.zoom_in));
+        binding.favoriteHeart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.zoom_out));
         if (isFavorite) {
             Util.user.removeRecipeToFavorites(id);
-            favorite.setBackgroundResource(R.drawable.ic_heart);
+            setFavoriteLayoutButton(R.drawable.ic_fav_white, R.color.accent, "Curtir", R.color.white);
         } else {
             Util.user.addRecipeToFavorites(id);
-            favorite.setBackgroundResource(R.drawable.ic_heart_filled);
+            setFavoriteLayoutButton(R.drawable.ic_fav_orange, R.color.white, "Curtiu", R.color.accent);
         }
+    }
+
+    private void setFavoriteLayoutButton(int p, int p2, String curtiu, int p3) {
+        binding.favoriteHeart.setBackgroundResource(p);
+        binding.favorite.setCardBackgroundColor(getResources().getColor(p2));
+        binding.faboriteText.setText(curtiu);
+        binding.faboriteText.setTextColor(getResources().getColor(p3));
     }
 
     private void updateFavoriteLisDB(List<String> list) {

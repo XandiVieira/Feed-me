@@ -18,12 +18,52 @@
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:id="@+id/favorite"
+            android:id="@+id/back_button"
             android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_height="34dp"
+            android:layout_margin="8dp"
+            android:src="@mipmap/ic_back_background" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_heart" />
+            android:layout_margin="8dp"
+            android:elevation="@dimen/button_elevation"
+            app:cardBackgroundColor="@color/accent"
+            app:cardCornerRadius="@dimen/button_corner_radius">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingBottom="2dp">
+
+                <TextView
+                    android:id="@+id/faborite_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:gravity="center"
+                    android:text="@string/like"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title" />
+
+                <ImageView
+                    android:id="@+id/favorite_heart"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_fav_white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </FrameLayout>
 
     <LinearLayout
@@ -40,6 +80,7 @@
             app:tabGravity="center"
             app:tabIndicatorColor="@color/accent"
             app:tabMode="scrollable"
+            android:background="@color/white"
             app:tabSelectedTextColor="@color/grey"
             app:tabTextAppearance="@style/tabs"
             app:tabTextColor="@color/grey_alpha" />

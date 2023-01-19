@@ -11,7 +11,7 @@
     android:orientation="horizontal"
     android:padding="5dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="@dimen/button_corner_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,10 +48,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_weight="1.5"
-                android:fontFamily="@font/urbanist_bold"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="@string/ingredient"
                 android:textColor="@color/grey_dark"
-                android:textSize="16dp" />
+                android:textSize="@dimen/title" />
 
             <TextView
                 android:id="@+id/quantity"
@@ -59,13 +59,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_weight="2.5"
-                android:fontFamily="@font/segoe_regular"
+                android:fontFamily="@font/segoe_small"
                 android:gravity="center_horizontal"
-                android:text="200 gr"
+                android:text="@string/measure_example"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/grey_dark"
-                android:textSize="16dp" />
+                android:textSize="@dimen/title" />
         </LinearLayout>
 
     </LinearLayout>

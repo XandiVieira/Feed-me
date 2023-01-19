@@ -142,7 +142,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         TextView rateIndicator;
         RatingBar ratingBar;
         ImageView favorite;
-        Button difficulty;
+        TextView difficulty;
         LinearLayout favoriteLayout;
         CardView cardView;
 

@@ -58,8 +58,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/title"
                         android:textColor="@color/grey_dark"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textSize="@dimen/title" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -79,8 +79,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             android:text="@string/time"
+                            android:fontFamily="@font/segoe_small"
                             android:textColor="@color/grey_dark"
-                            android:textSize="12dp" />
+                            android:textSize="@dimen/subtitle" />
                     </LinearLayout>
 
                     </LinearLayout>
@@ -118,7 +119,7 @@
                             android:layout_height="wrap_content"
                             android:numStars="5"
                             android:progressBackgroundTint="@color/grey"
-                            android:progressTint="@color/grey"
+                            android:progressTint="@color/star"
                             android:rating="4"
                             android:stepSize="0.5" />
 
@@ -128,7 +129,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:textColor="@color/grey_dark"
-                            android:textSize="12dp" />
+                            android:fontFamily="@font/segoe_small"
+                            android:textSize="@dimen/detail_text" />
 
                     </LinearLayout>
 
@@ -140,15 +142,18 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="88dp"
                             android:layout_height="24dp"
-                            app:cardCornerRadius="16dp">
+                            app:cardCornerRadius="@dimen/button_corner_radius">
 
-                            <Button
+                            <TextView
                                 android:id="@+id/difficulty"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@color/accent"
-                                android:clickable="false"
-                                android:text="@string/hard" />
+                                android:fontFamily="@font/quicksand_bold"
+                                android:gravity="center"
+                                android:text="@string/hard"
+                                android:textColor="@color/button_text"
+                                android:textSize="@dimen/button_text" />
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
                 </LinearLayout>

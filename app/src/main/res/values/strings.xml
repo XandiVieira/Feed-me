@@ -44,16 +44,16 @@
     <string name="leave">Sair</string>
 
     <!--TextViews-->
-    <string name="login">Entrar</string>
-    <string name="login_slogan">Entre agora mesmo e se delicie conosco!</string>
+    <string name="signin">Entrar</string>
+    <string name="login_slogan">Acesse sua conta e aproveite as delícias do Feed.me</string>
     <string name="email">E-mail</string>
     <string name="password">Senha</string>
-    <string name="do_not_have_an_acc_yet">Não tem conta ainda?</string>
+    <string name="do_not_have_an_acc">Não tem conta?</string>
     <string name="create_acc">Criar conta</string>
     <string name="ingredients">Ingredientes</string>
     <string name="step_by_step">Passo a Passo</string>
-    <string name="register">Cadastrar</string>
-    <string name="register_slogan">Crie uma conta e se delicie conosco!</string>
+    <string name="register">Cadastro</string>
+    <string name="register_slogan">Crie sua conta gratuitamente e se delicie conosco!</string>
     <string name="already_have_an_acc">Já tem uma conta?</string>
     <string name="login_here">Entre aqui!</string>
     <string name="search_here">Pesquise aqui</string>
@@ -74,4 +74,35 @@
     <string name="ranking">Ranking</string>
     <string name="home">Home</string>
     <string name="alerts">Alertas</string>
+    <string name="email_example">myemail@gmail.com</string>
+    <string name="email_support_message">Seu e-mail deve conter @</string>
+    <string name="password_support_message">Sua senha deve conter pelo menos 8 caracteres</string>
+    <string name="name">Nome</string>
+    <string name="name_example">Maria</string>
+    <string name="name_support_message">Seu nome não deve estar vazio</string>
+    <string name="last_name">Sobrenome</string>
+    <string name="last_name_example">Silva</string>
+    <string name="last_name_support_message">Seu sobrenome não deve estar vazio</string>
+    <string name="password_example">********</string>
+    <string name="forgot_password">Esqueci a senha</string>
+    <string name="recover_pasword">Recuperar Senha</string>
+    <string name="recover_pasword_slogan">Volte logo a se deliciar com nossas receitas</string>
+    <string name="password_confirmation">Confirme sua senha</string>
+    <string name="password_confirmation_support_message">As senhas devem ser iguais</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Cadastre-se</string>
+    <string name="confirm_your_email">Confirme seu e-mail</string>
+    <string name="access_your_email_box_and_confirm_link">Para prosseguir, acesse sua caixa de entrada e confirme seu e-mail clicando no link recebido</string>
+    <string name="resend_email">Reenviar e-mail</string>
+    <string name="release_message">Dispensar</string>
+    <string name="email_was_resent">E-mail reenviado. Verifique a caixa de entrada</string>
+    <string name="confirmed">Confirmei</string>
+    <string name="error_weak_password">Senha muito fraca</string>
+    <string name="invalid_email">E-mail inválido</string>
+    <string name="email_already_exists">Este e-mail já está sendo usado por outra conta</string>
+    <string name="continue_bt">Continuar</string>
+    <string name="access_your_acc">Acesse sua conta</string>
+    <string name="measure_example">200 gr</string>
+    <string name="liked">Curtiu</string>
+    <string name="like">Curtir</string>
 </resources>

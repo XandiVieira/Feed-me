@@ -2,11 +2,15 @@ package com.relyon.feedme.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +72,65 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
         });
 
+        binding.forgotPassword.setOnClickListener(view1 -> {
+            startActivity(new Intent(getApplicationContext(), ForgotPasswordActivity.class));
+        });
+
+        binding.emailInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    changeToErrorMode(binding.email, binding.emailInput, "O e-mail não deve estar vazio.", binding.emailSupportMessage);
+                } else if (!isValidEmail(editable)) {
+                    changeToErrorMode(binding.email, binding.emailInput, "E-mail inválido.", binding.emailSupportMessage);
+                } else {
+                    binding.emailSupportMessage.setVisibility(View.INVISIBLE);
+                    changeFocusMode(true, binding.email, binding.emailInput);
+                }
+            }
+        });
+        binding.emailInput.setOnFocusChangeListener((view1, b) -> {
+            changeFocusMode(b && binding.emailInput.getError() == null, binding.email, binding.emailInput);
+        });
+
+        binding.passwordInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    changeToErrorMode(binding.password, binding.passwordInput, "Senha inválida.", binding.passwordSupportMessage);
+                } else if (editable.length() < 8) {
+                    changeToErrorMode(binding.password, binding.passwordInput, "Senha muito curta.", binding.passwordSupportMessage);
+                } else {
+                    binding.passwordSupportMessage.setVisibility(View.INVISIBLE);
+                    changeFocusMode(true, binding.password, binding.passwordInput);
+                }
+            }
+        });
+
+        binding.passwordInput.setOnFocusChangeListener((view1, b) -> {
+            changeFocusMode(b && binding.passwordInput.getError() == null, binding.password, binding.passwordInput);
+        });
+
         binding.loginButton.setOnClickListener(view1 -> {
             Editable email = binding.emailInput.getText();
             Editable password = binding.passwordInput.getText();
@@ -75,10 +138,15 @@ public class LoginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(email.toString(), password.toString())
                         .addOnCompleteListener(this, task -> {
                             if (task.isSuccessful()) {
-                                if (task.getResult().getAdditionalUserInfo() != null && task.getResult().getAdditionalUserInfo().isNewUser()) {
-                                    onBoardingActivity();
+                                if (mAuth.getCurrentUser().isEmailVerified()) {
+                                    if (task.getResult().getAdditionalUserInfo() != null && task.getResult().getAdditionalUserInfo().isNewUser()) {
+                                        onBoardingActivity();
+                                    } else {
+                                        homeActivity();
+                                    }
                                 } else {
-                                    homeActivity();
+                                    startActivity(new Intent(getApplicationContext(), EmailConfirmationActivity.class).putExtra("email", email).putExtra("password", password));
+                                    Toast.makeText(getApplicationContext(), "Por favor, verifique seu e-mail.", Toast.LENGTH_LONG).show();
                                 }
                             } else {
                                 Log.w("Fail", "createUserWithEmail:failure", task.getException());
@@ -87,6 +155,24 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
         });
+    }
+
+    private boolean isValidEmail(Editable editable) {
+        return Patterns.EMAIL_ADDRESS.matcher(editable).matches();
+    }
+
+    private void changeToErrorMode(TextView field, EditText input, String errorMessage, TextView
+            message) {
+        field.setTextColor(getResources().getColor(R.color.red));
+        message.setText(errorMessage);
+        input.getBackground().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
+        message.setVisibility(View.VISIBLE);
+    }
+
+    private void changeFocusMode(boolean focused, TextView text, EditText input) {
+        int color = focused ? getResources().getColor(R.color.green) : getResources().getColor(R.color.grey_dark);
+        text.setTextColor(color);
+        input.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
     }
 
     protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
@@ -151,11 +237,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void homeActivity() {
+        finish();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 
     private void onBoardingActivity() {
+        finish();
         Intent intent = new Intent(getApplicationContext(), OnBoardingActivity.class);
         startActivity(intent);
     }

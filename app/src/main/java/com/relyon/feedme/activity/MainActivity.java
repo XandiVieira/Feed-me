@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "No such document");
                             User user = document.toObject(User.class);
                             if (user == null && mAuth.getCurrentUser() != null) {
-                                user = createUser(id);
+                                user = createUser(id, null, null);
                                 Util.user = user;
                             }
                         }
@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private User createUser(String id) {
+    private User createUser(String id, String name, String lastName) {
         User user;
-        user = new User(id, mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getEmail(), LocalDate.now().toString(), 0.0, mAuth.getCurrentUser().getPhotoUrl() != null ? mAuth.getCurrentUser().getPhotoUrl().toString() : null);
+        user = new User(id, name, lastName, mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getEmail(), LocalDate.now().toString(), 0.0, mAuth.getCurrentUser().getPhotoUrl() != null ? mAuth.getCurrentUser().getPhotoUrl().toString() : null);
         Util.db.collection("users").document(id)
                 .set(user);
         return user;

@@ -6,6 +6,8 @@ import java.util.List;
 public class User {
 
     private String id;
+    private String name;
+    private String lastName;
     private String username;
     private String email;
     private String memberSince;
@@ -16,8 +18,10 @@ public class User {
     public User() {
     }
 
-    public User(String id, String username, String email, String memberSince, double points, String photoUrl) {
+    public User(String id, String name, String lastName, String username, String email, String memberSince, double points, String photoUrl) {
         this.id = id;
+        this.name = name;
+        this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.memberSince = memberSince;
@@ -25,12 +29,38 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
+    public void addRecipeToFavorites(String recipeId) {
+        if (favoriteRecipes == null) {
+            favoriteRecipes = new ArrayList<>();
+        }
+        favoriteRecipes.add(recipeId);
+    }
+
+    public void removeRecipeToFavorites(String recipeId) {
+        if (favoriteRecipes == null) {
+            favoriteRecipes = new ArrayList<>();
+        }
+        favoriteRecipes.remove(recipeId);
+    }
+
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -61,30 +91,8 @@ public class User {
         return points;
     }
 
-    public void setPoints(double points) {
-        this.points = points;
-    }
-
     public List<String> getFavoriteRecipes() {
         return favoriteRecipes;
-    }
-
-    public void setFavoriteRecipes(List<String> favoriteRecipes) {
-        this.favoriteRecipes = favoriteRecipes;
-    }
-
-    public void addRecipeToFavorites(String recipeId) {
-        if (favoriteRecipes == null) {
-            favoriteRecipes = new ArrayList<>();
-        }
-        favoriteRecipes.add(recipeId);
-    }
-
-    public void removeRecipeToFavorites(String recipeId) {
-        if (favoriteRecipes == null) {
-            favoriteRecipes = new ArrayList<>();
-        }
-        favoriteRecipes.remove(recipeId);
     }
 
     public String getPhotoUrl() {
