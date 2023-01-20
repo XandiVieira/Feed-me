@@ -201,20 +201,34 @@
                 android:textColor="@color/grey_dark"
                 android:textSize="@dimen/subtitle" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordInput"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="password"
-                android:backgroundTint="@color/grey_dark"
-                android:fontFamily="@font/segoe_small"
-                android:hint="@string/password_example"
-                android:inputType="textPassword"
-                android:paddingVertical="8dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/title"
-                app:passwordToggleEnabled="true" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="password"
+                    android:backgroundTint="@color/grey_dark"
+                    android:fontFamily="@font/segoe_small"
+                    android:hint="@string/password_example"
+                    android:inputType="textPassword"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_dark"
+                    android:textSize="@dimen/title"
+                    app:passwordToggleEnabled="true" />
+
+                <ImageView
+                    android:id="@+id/password_visibility"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_hidden_password"
+                    android:tag="invisible" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/password_support_message"
@@ -247,20 +261,34 @@
                 android:textColor="@color/grey_dark"
                 android:textSize="12sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_confirmation_input"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="password"
-                android:backgroundTint="@color/grey_dark"
-                android:fontFamily="@font/segoe_small"
-                android:hint="@string/password_example"
-                android:inputType="textPassword"
-                android:paddingVertical="8dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="16sp"
-                app:passwordToggleEnabled="true" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_confirmation_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="password"
+                    android:backgroundTint="@color/grey_dark"
+                    android:fontFamily="@font/segoe_small"
+                    android:hint="@string/password_example"
+                    android:inputType="textPassword"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_dark"
+                    android:textSize="@dimen/title"
+                    app:passwordToggleEnabled="true" />
+
+                <ImageView
+                    android:id="@+id/password_confirmation_visibility"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_hidden_password"
+                    android:tag="invisible" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/password_confirmation_support_message"

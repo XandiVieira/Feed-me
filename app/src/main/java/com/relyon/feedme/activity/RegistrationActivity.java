@@ -3,20 +3,24 @@ package com.relyon.feedme.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -190,11 +195,28 @@ public class RegistrationActivity extends AppCompatActivity {
 
         binding.loginLink.setOnClickListener(view1 -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
-        binding.registerButton.setOnClickListener(view1 -> {
-            registerUserWithEmailAndPassword();
-        });
+        binding.registerButton.setOnClickListener(view1 -> registerUserWithEmailAndPassword());
 
         binding.googleButton.setOnClickListener(view1 -> signInGoogle());
+
+        binding.passwordVisibility.setOnClickListener(view -> changePasswordVisibility(binding.passwordVisibility, binding.passwordInput));
+        binding.passwordConfirmationVisibility.setOnClickListener(view -> changePasswordVisibility(binding.passwordConfirmationVisibility, binding.passwordConfirmationInput));
+    }
+
+    private void changePasswordVisibility(ImageView passwordVisibility, TextInputEditText passwordInput) {
+        Drawable visibleDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_visible_password, getTheme());
+        Drawable invisibleDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_hidden_password, getTheme());
+
+        if (passwordVisibility.getTag().equals("visible")) {
+            passwordVisibility.setTag("invisible");
+            passwordVisibility.setImageDrawable(invisibleDrawable);
+            passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        } else {
+            passwordVisibility.setTag("visible");
+            passwordVisibility.setImageDrawable(visibleDrawable);
+            passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }
+        passwordInput.setSelection(passwordInput.getText() != null ? passwordInput.getText().length() : 0);
     }
 
     private void registerUserWithEmailAndPassword() {
